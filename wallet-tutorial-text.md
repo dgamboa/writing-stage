@@ -59,14 +59,50 @@ Anyone with access to these keys has access to the locker, which is why it's imp
 
 We'll be building a type of wallet called a Hierarchical Deterministic (HD) wallet. We don't need to dive into the full definition of HD wallets here, but it's important to know that they enable the ability to store the private key as a 12-, 18-, or 24-word phrase referred to as a secret recovery phrase or mnemonic phrase. You'll be using a JavaScript library called Bip39 to facilitate the generation of this phrase, which in turn can be converted into a private key to create a wallet.
 
+<!-- Potential for an aside box here on a brief history of wallets to drive home the point that most wallets today are HD wallets and conform to BIP39 -->
 
+### Challenge
+If you haven't already, open the app in your browser at [http://localhost:3000](http://localhost:3000). You'll notice the frontend offers the user the ability to create a new wallet. Clicking on `Create New Wallet` routes the user to a generate page signaling to our user that by clicking `Generate`, the app will generate a key phrase (i.e. create a wallet). But when we click `Generate`, nothing shows up in the phrase container.
+
+For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when this page renders. Navigate to `pages/phrase.tsx` and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 1.3]() below.
+
+***Listing 1.3
+```
+--> code here
+```
+
+### Implementation
+In order to generate the phrase, we need to leverage an external library that satisfies the BIP39 specification. Fortunately, there's [Bip39](https://github.com/bitcoinjs/bip39), which provides us with the functionality we need to generate the phrase and later convert it into the seed we need to generate our Solana wallet keys.
+
+We have already installed the library when we ran `yarn` during set up because we pre-packaged it into the `package.json` included in the pre-built app. So all that's left is to import it:
+
+```
+import * as Bip39 from "bip39";
+```
+
+Recall that secret recovery phrases are also called mnemonics and Bip39 includes a method for generating mnemonic phrases, `generateMnemonic()`. We can call it and replace the variable currently assigned to an empty string:
+
+```
+const generatedMnemonic = Bip39.generateMnemonic();
+```
+
+<!-- Consider aside on why phrases are also called mnemonics -->
 
 ## Step 3: Fetching a Balance
 
+### Challenge
+
 ## Step 4: Airdropping Funds
+
+### Challenge
 
 ## Step 5: Transferring Funds
 
+### Challenge
+
 ## Step 6: Recovering an Account
 
+### Challenge
+
 ## Conclusion
+<!-- Review the application layout to solidify how everything is working together and where everything lives -->
