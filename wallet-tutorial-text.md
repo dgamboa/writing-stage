@@ -5,7 +5,9 @@ In this tutorial, you'll learn to develop a wallet for the [Solana](https://sola
 ## Step 1: Up and Running
 
 ### Prerequisites
-There are no formal blockchain or Web3 prerequisites for this tutorial, but ideally you have some experience with [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). Feel free to give it a shot even if you don't since you'll likely get a lot out of it anyway. Just be extra patient because it may be more difficult to navigate how the app works while you build the interactions with Solana.
+There are no formal blockchain or Web3 prerequisites for this tutorial, but ideally you have some experience with [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). You should also know what [Solana](https://solana.com/) is at a very high level (i.e. a public blockchain protocol capable of running smart contracts with significant scalability advantages), even if that means nothing more than having read a blog post or listened to a podcast about it.
+
+Feel free to give it a shot even if you don't meet the above prerequisites since you'll likely get a lot out of it anyway. Just be extra patient because it may be more difficult to navigate the pre-built app and the Solana functionality we'll be developing.
 
 ### System Dependencies
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install) installed.
@@ -52,6 +54,12 @@ Although building a full-blown, non-custodial wallet like Phantom or MetaMask is
 Crypto wallets are one of the critical pieces of user-facing blockchain infrastructure. In the same way that the browser brought the web to a mass audience by providing an easy-to-use gateway into the underlying servers and databases, wallets provide users with an easy way to interact with a blockchain protocol.
 
 A wallet is less like the wallet you use for you credit cards, and a lot more like a key chain. If you think of a blockchain as a giant room of digital storage lockers, wallets are the key chains where you keep the keys to your locker. And once you have access, you can manage the contents of that locker by receiving, sending, and spending the digital assets it contains.
+
+Anyone with access to these keys has access to the locker, which is why it's important for users to keep them private - hence their name, private keys. The locker or account is called a public key. And as opposed to physical lockers, but similar to mailing letters or sending dollars to a bank account, anyone with the public key can send digital assets to that account. That's why public keys are also referred to as public addresses. 
+
+We'll be building a type of wallet called a Hierarchical Deterministic (HD) wallet. We don't need to dive into the full definition of HD wallets here, but it's important to know that they enable the ability to store the private key as a 12-, 18-, or 24-word phrase referred to as a secret recovery phrase or mnemonic phrase. You'll be using a JavaScript library called Bip39 to facilitate the generation of this phrase, which in turn can be converted into a private key to create a wallet.
+
+
 
 ## Step 3: Fetching a Balance
 
