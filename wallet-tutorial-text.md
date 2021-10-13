@@ -74,7 +74,7 @@ For the app to work, we need to implement a function that generates a phrase and
 ### Implementation
 In order to generate the phrase, we need to leverage an external library that satisfies the BIP39 specification. Fortunately, there's [Bip39](https://github.com/bitcoinjs/bip39), which provides us with the functionality we need to generate the phrase and later convert it into the seed we need to generate our Solana wallet keys.
 
-We have already installed the library when we ran `yarn` during set up because we pre-packaged it into the `package.json` included in the pre-built app. So all that's left is to import it:
+We have already installed the library when we ran `yarn` during set up because we included it into the `package.json` included in the pre-built app. So all that's left is to import it:
 
 ```
 import * as Bip39 from "bip39";
@@ -86,7 +86,43 @@ Recall that secret recovery phrases are also called mnemonics and Bip39 includes
 const generatedMnemonic = Bip39.generateMnemonic();
 ```
 
+This allows us to set the phrase in state and display it for our wallet user to store safely. In fact, with this we have already created our wallet or account because the phrase by itself will allow its holder to access the account that matches it. You could say that blockchain accounts aren't created. Because these accounts are mathematical addresses in a system where the number of accounts is established by the its architecture, it's more accurate to think of the mnemonic as obtaining the key to access a pre-existing account.
+
 <!-- Consider aside on why phrases are also called mnemonics -->
+
+But we need one more step to establish a connection to the account. We need to convert the phrase into a form that the blockchain can understand. Mnemonic phrases after all are abstractions that translate a long, archaic number into a more human-friendly form.
+
+We need to convert the phrase into bytes so the Solana web3.js library can use it to generate an account. An account is referred to as a keypair. That is, a public key that can encrypt data and a private key that can decrypt data.
+
+<!-- Potential aside on keypairs -->
+
+By reviewing Solana's web3.js documentation, we can see that there is a Keypair class defined as "an account keypair used for signing transactions." This is exactly what we need to generate using the mnemonic phrase.
+
+We notice that the Keypair class has a method, `fromSeed` that generates a keypair from a 32-byte seed. It also mentions that the seed needs to be a `Uint8Array`, which means we'll need a way to convert our `string` phrase into a `Uint8Array`.
+
+Going back to the Bip39 library we see a method called `mnemonicToSeedSync(mnemonic)` that returns some sort of `Buffer` object that looks like a list of hexadecimal numbers. We can test this by adding running it in our application and passing in the mnemonic we generated:
+
+```
+const seed = Bip39.mnemonicToSeedSync(generatedMnemonic)
+console.log(seed)
+> Uint8Array(64)
+```
+
+It looks like we're close. The Keypair class requires a 32-byte `Uint8Array` and we're getting a 64-byte `Uint8Array`. We can slice the seed and keep only the first 32 bytes:
+
+```
+const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32)
+console.log(seed)
+> Uint8Array(32)
+```
+
+With the seed in that format, we can use Keypair's `fromSeed` method to generate an account keypair:
+
+```
+const newAccount = Keypair.fromSeed(seed);
+```
+
+We then set the account into the context state manager and we have access to a Solana wallet. Now that we have access to a wallet, we can implement the crucial functionality of showing users their account balance in SOL, the native currency of the Solana protocol.
 
 ## Step 3: Fetching a Balance
 
