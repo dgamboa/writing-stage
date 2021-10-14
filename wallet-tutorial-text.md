@@ -19,9 +19,9 @@ First, clone [the repo](https://github.com) in your system and install the app d
 
 ***Listing 1.1
 ```
-git clone --> add repo link here
-cd wallet-tutorial
-yarn
+$ git clone --> add repo link here
+$ cd wallet-tutorial
+$ yarn
 ```
 
 Then, run `yarn dev` in your terminal to start the development server on port 3000. The terminal should print output similar to that in [Listing 1.2]() prompting you that the app is available to be viewed at [http://localhost:3000](http://localhost:3000).
@@ -64,9 +64,9 @@ We'll be building a type of wallet called a Hierarchical Deterministic (HD) wall
 ### Challenge
 If you haven't already, open the app in your browser at [http://localhost:3000](http://localhost:3000). You'll notice the frontend offers the user the ability to create a new wallet. Clicking on `Create New Wallet` routes the user to a generate page signaling to our user that by clicking `Generate`, the app will generate a key phrase (i.e. create a wallet). But when we click `Generate`, nothing shows up in the phrase container.
 
-For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when this page renders. Navigate to `pages/phrase.tsx` and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 1.3]() below.
+For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when this page renders. Navigate to `pages/phrase.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 1.3]() below.
 
-***Listing 1.3
+***Listing 2.1
 ```
 --> code here
 ```
@@ -76,13 +76,13 @@ In order to generate the phrase, we need to leverage an external library that sa
 
 We have already installed the library when we ran `yarn` during set up because we included it into the `package.json` included in the pre-built app. So all that's left is to import it:
 
-```
+```javascript
 import * as Bip39 from "bip39";
 ```
 
 Recall that secret recovery phrases are also called mnemonics and Bip39 includes a method for generating mnemonic phrases, `generateMnemonic()`. We can call it and replace the variable currently assigned to an empty string:
 
-```
+```javascript
 const generatedMnemonic = Bip39.generateMnemonic();
 ```
 
@@ -102,43 +102,134 @@ We notice that the Keypair class has a method, `fromSeed` that generates a keypa
 
 Going back to the Bip39 library we see a method called `mnemonicToSeedSync(mnemonic)` that returns some sort of `Buffer` object that looks like a list of hexadecimal numbers. We can test this by adding running it in our application and passing in the mnemonic we generated:
 
-```
+```javascript
 const seed = Bip39.mnemonicToSeedSync(generatedMnemonic)
 console.log(seed)
+
+// console:
 > Uint8Array(64)
 ```
 
 It looks like we're close. The Keypair class requires a 32-byte `Uint8Array` and we're getting a 64-byte `Uint8Array`. We can slice the seed and keep only the first 32 bytes:
 
-```
+```javascript
 const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32)
 console.log(seed)
+
+// console:
 > Uint8Array(32)
 ```
 
 With the seed in that format, we can use Keypair's `fromSeed` method to generate an account keypair:
 
-```
+```javascript
 const newAccount = Keypair.fromSeed(seed);
 ```
 
-We then set the account into the context state manager and we have access to a Solana wallet. Now that we have access to a wallet, we can implement the crucial functionality of showing users their account balance in SOL, the native currency of the Solana protocol.
+We then set the account into the context state manager and we have access to a Solana wallet. If you click on the `Finish` button, you'll be routed to the wallet page that displays the account's dashboard.
+
+You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3]() while implementing the crucial functionality of showing users their balance in the next step. In [Step 4]() we'll dive into airdrops and make the Airdrop button functional, and in [Step 5]() we'll enable the Send button and transfer funds.
+
+***Listing 2.2: Code for Creating a Wallet
+```javascript
+const generatedMnemonic = Bip39.generateMnemonic();
+setMnemonic(generatedMnemonic);
+
+const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32)
+const newAccount = Keypair.fromSeed(seed);
+setAccount(newAccount);
+```
 
 ## Step 3: Fetching a Balance
+Crypto wallets serve one key function. By storing your private keys, they allow you to manage - transfer, receive, organize - your digital assets. Part of that function requires the wallet to retrieve certain data that is stored on the blockchain to display on your user dashboard. Balances are one of the most important pieces of information users view on their wallet dashboards.
+
+A balance represents a certain amount of cryptocurrency or tokens held by a specific account. If you think of the blockchain as a database that keeps ownership records, and of the public keys as the owner IDs, then you can think of the balances as an integer column in the database that tracks how much of a certain token each owner ID holds.
+
+We'll be connecting to one of Solana's networks, and fetching the balance for the account we just created. Later in [Step 4](), we'll be funding the account with test tokens using the airdrop function.
+
+The concept of various networks for a single protocol is similar to that of different environments for an app (e.g. development, test, production, etc). Typically blockchain protocols have a main network or mainnet, which refers to the production blockchain with real economic value and official transactions, and at least one experimentation network, which refers to an identical blockchain used to test features before they go live on mainnet.
+
+Solana has a production network called mainnet and two exploration networks called testnet and devnet. Solana's devnet is designed for developers and users to play with various features and debug dApps before launching on mainnet with real economic consequences. The testnet is where the Solana protocol tests new releases and potential protocol updates.
+
+You'll notice the wallet includes a dropdown at the top-right that allows users to select what network they want to connect to. This allows the wallet to manage assets specific to the connected network. Our default network is devnet since we'll be using it to leverage test tokens in [Step 4]() and then transfer them in [Step 5](), but the functionality we'll build will work for any of the Solana networks.
 
 ### Challenge
+In the last step, we discussed how a wallet is more like a keychain that holds keypairs representing an account address and the key to access it. We built a function that allowed us to generate a unique account and the corresponding phrase that works like a password for accessing the account. Now we need to connect with the Solana blockchain so we can fetch the account's balance, which at this point should be zero since we just created it.
+
+If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1]() below. 
+
+***Listing 3.1
+```
+--> code here
+```
+
+### Implementation
+The first step for interacting with any blockchain is to instantiate a connection. Conveniently there's a Connection class in web3.js designed to do just that. By reviewing the documentation, we notice the Connection constructor requires two argument: `endpoint: string` and `commitmentOrConfig?: Commitment | ConnectionConfig`.
+
+The description for `endpoint` mentions that it's a "URL to the fullnode JSON RPC endpoint". Since we don't have a URL for the connection, we need to either find one from Solana or look for a function that will return a URL. By searching the web3.js docs for "URL", we see that there's a function called `clusterApiUrl` that returns the "RPC API URL for the specified cluster". Moreover, if we review the Cluster type, we see that it refers to the network we want to connect to.
+
+As for `commitmentOrConfig`, it looks like the definition for `Commitment` types describes it as the "level of commitment desired when querying state", which is a meaningless definition to us at this point. However it looks like `Commitment` can be one of several strings so we should choose one and test the function. In this case, we can choose "confirmed" as a reasonable guess and move forward.
+
+<!-- Consider aside on technical sophistication and give shout out to Hartl -->
+
+Putting the above together, we can build our connection instance:
+
+```javascript
+const connection = new Connection(clusterApiUrl(network), "confirmed");
+console.log(connection)
+
+// console:
+> Connection {_commitment: 'confirmed', _confirmTransactionInitialTimeout: undefined, _rpcEndpoint: 'https://api.devnet.solana.com', _rpcWsEndpoint: 'wss://api.devnet.solana.com/', _rpcClient: ClientBrowser, …}
+```
+
+Now that we have a connection, we need to fetch our account's balance. We might speculate that there should be a `getBalance` function that takes an account's public address as a parameter, and returns the account's balance. Searching for the keyword "balance" in the web3.js docs, we can see that, not only is there a `getBalance` method, but it's a method of the Connection class.
+
+Reviewing the `getBalance` method on Connection, we can see it expects the account's public key as a parameter.
+
+```javascript
+const publicKey = account.publicKey;
+const balance = await connection.getBalance(publicKey);
+console.log(balance)
+```
+
+There are a few ways to structure this part of the function. We've chosen to assign a variable, `publicKey`, to the account's public key, and then pass that into `getBalance` to query the network for the balance. From the docs, we know `getBalance` returns a promise so we use `await` and assign its return value to the `balance` variable. By logging `balance`, we can see our account has zero balance as expected.
+
+But that's a bit anticlimactic. We know it's a new account and it should have zero balance. Nothing changed on the frontend because the default value was zero. We need to fund the account to see the balance change, and we'll do just that in the next step.
+
+***Listing 3.2: Code for Fetching a Balance
+```javascript
+const refreshBalance = async (network: Cluster, account: Keypair | null) => {
+  if (!account) return;
+
+  try {
+    const connection = new Connection(clusterApiUrl(network), "confirmed");
+    const publicKey = account.publicKey;
+    const balance = await connection.getBalance(publicKey);;
+    return balance
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+};
+```
 
 ## Step 4: Airdropping Funds
 
 ### Challenge
 
+### Implementation
+
 ## Step 5: Transferring Funds
 
 ### Challenge
 
+### Implementation
+
 ## Step 6: Recovering an Account
 
 ### Challenge
+
+### Implementation
 
 ## Conclusion
 <!-- Review the application layout to solidify how everything is working together and where everything lives -->
