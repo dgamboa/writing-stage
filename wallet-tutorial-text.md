@@ -13,7 +13,7 @@ Feel free to give it a shot even if you don't meet the above prerequisites since
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install) installed.
 
 ### Setting Up
-You'll be building Solana interactions on top of a Next.js app that we have pre-built for you. This way you can skip the development phases you're familiar with (e.g. writing React components and Next pages) and dive right into the blockchain-specific phases.
+You'll be building Solana interactions on top of a [Next.js](https://nextjs.org/) app that we have pre-built for you. This way you can skip the development phases you're familiar with (e.g. writing React components and Next pages) and dive right into the blockchain-specific phases.
 
 First, clone [the repo](https://github.com) in your system and install the app dependencies by running the following three commands in your terminal:
 
@@ -48,7 +48,7 @@ Finally, we'll use the phrase we generated in [Step 2]() to sign into an account
 
 ***Insert GIF of wallet recovery
 
-Although building a full-blown, non-custodial wallet like Phantom or MetaMask is beyond the scope of this tutorial, by the end of it you'll have developed enough judgment to better allocate your learning time as you explore new projects. We'll end the tutorial with a list of additional resources that you'll be well prepared to expand into.
+Although building a production-ready, non-custodial wallet like Phantom or MetaMask is beyond the scope of this tutorial, by the end of it you'll have developed a foundation of judgment that will let you better allocate your learning time as you explore new projects. To assist with that, we'll end the tutorial with a list of [additional resources]() that you'll be well prepared to expand into.
 
 ## Step 2: Creating a Wallet
 Crypto wallets are one of the critical pieces of user-facing blockchain infrastructure. In the same way that the browser brought the web to a mass audience by providing an easy-to-use gateway into the underlying servers and databases, wallets provide users with an easy way to interact with a blockchain protocol.
@@ -278,7 +278,13 @@ Note that we don't need to assign a variable to the confirmation here. Once our 
 return await refreshBalance(network, account);
 ```
 
-We've come a long way and should have a better idea of how blockchain protocols work at a high level. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered some of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](), so buckle up.
+Avid readers might have noticed that the balance in our account looks wrong. It reads one billion SOL when it should read 1 SOL. Now that we know what Lamports are, how they relate to SOL, and how to use the `LAMPORTS_PER_SOL` constant, we can go back to our `refreshBalance` function and fix the bug by updating the return value.
+
+```javascript
+return balance / LAMPORTS_PER_SOL
+```
+
+We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered some of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](), so buckle up.
 
 ***Listing 4.2: Code for Airdropping Funds
 ```javascript
@@ -299,13 +305,54 @@ const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
     return;
   }
 };
+
+const refreshBalance = async (network: Cluster, account: Keypair | null) => {
+  if (!account) return;
+
+  try {
+    .
+    .
+    .
+    return balance / LAMPORTS_PER_SOL
+  } catch (error) {
+    .
+    .
+    .
+  }
+};
 ```
 
 ## Step 5: Transferring Funds
+Now that we've funded our account with test tokens on devnet, we can start to think about how we might use those funds. In a real-world application, we might want to swap SOL for another token, pay for a good or service in SOL, or even gift someone some SOL. To do that we need a way to let the network ledger know that our account should transfer funds to another account.
+
+Thinking about it from first principles, we know we'll need a function that takes in two addresses - the sender and the recipient. We also know that we'll need to pass in an amount - the number of SOL or Lamports that we want to send.
+
+But there's one more key component: we need to prove to the network that we are in fact the owner of those funds and that we approve the transfer.
+
+Consider a traditional paper check that you might use to pay your landlord. The check has your name and address printed on the top left. It includes a field for you to write the recipient's name along with a field for you to write the amount you're paying her. Finally, it includes a field for you to sign the check to validate to the bank that you're approving the transfer.
+
+<!-- Include picture of a check -->
+
+Let's pretend that banks actually use those signatures to validate it was actually you who signed it (spoiler alert: they don't for the most part). The blockchain model of transferring funds is pretty similar. You need a way to sign the transaction so the network can confirm it as valid and change the balances of the corresponding accounts.
+
+The concept of cryptographic signing is fascinating, but well beyond the scope of this tutorial. We'll provide [additional resources]() if you want to explore the math, but suffice it to say that your keys, along with hashing algorithms and something called a one-way function, are designed for this very purpose.
+
+<!-- Include simple aside describing the basics of public key cryptography -->
+
+With those building blocks in mind, we're ready to search the docs for a way to send and confirm a transaction.
 
 ### Challenge
+If you click on the Send button on the wallet dashboard, a drawer component opens up that shows a form structured as a paper check. It includes all the components of a transaction but the Sign and Send button doesn't work yet.
+
+Navigate to `components/TransactionLayout/index.tsx` in your editor and follow the steps included as comments to finish writing the `transfer` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 5.1]() below. 
+
+***Listing 5.1
+```
+--> code here
+```
 
 ### Implementation
+
 
 ## Step 6: Recovering an Account
 
