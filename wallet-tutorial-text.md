@@ -134,9 +134,9 @@ With the seed in that format, we can use Keypair's `fromSeed` method to generate
 const newAccount = Keypair.fromSeed(seed);
 ```
 
-We then set the account into the context state manager and we have access to a Solana wallet. If you click on the `Finish` button, you'll be routed to the wallet page that displays the account's dashboard.
+We then set the account into the context state manager and we have access to a Solana wallet. Before you click **Finish**, save the recovery phrase as we'll be using in [Step 6]() to access it once we've logged out. Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard.
 
-You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3]() while implementing the crucial functionality of showing users their balance in the next step. In [Step 4]() we'll dive into airdrops and make the Airdrop button functional, and in [Step 5]() we'll enable the Send button and transfer funds.
+You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3]() while implementing the crucial functionality of showing users their balance in the next step. In [Step 4]() we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5]() we'll enable the Send button and transfer funds.
 
 \*\*\*Listing 2.2: Code for Creating a Wallet
 
@@ -235,13 +235,13 @@ In this step, we'll be building functionality to allow users to "airdrop" SOL to
 
 <!-- Consider an aside on famous project airdrops and mention it "pays" to be an early adopter in crypto -->
 
-On the right of the wallet dashboard, you'll find a button with the label Airdrop. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on Airdrop.
+On the right of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
 
-Once we've completed it this step, our balance will automatically increase when we click Airdrop. This will position us well for [Step 5]() where we'll build functionality to send funds to other Solana accounts.
+Once we've completed it this step, our balance will automatically increase when we click **Airdrop**. This will position us well for [Step 5]() where we'll build functionality to send funds to other Solana accounts.
 
 ### Challenge
 
-If you open the browser's console from the `/wallet` page, and click on the Airdrop button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1]() below.
+If you open the browser's console from the `/wallet` page, and click on the **Airdrop** button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1]() below.
 
 \*\*\*Listing 4.1
 
@@ -507,7 +507,25 @@ const transfer = async () => {
 
 ## Step 6: Recovering an Account
 
+Getting access to accounts is obviously a critical feature for any wallet application, and given our choice of architecture, we don't have to worry about encrypting and decrypting passwords to log in and out. The beauty of public-key cryptography is that the private key is effectively your password. And while securing crypto applications is more sophisticated than simply using your private key as a password, especially for industrial-strength wallets, we can achieve the basic functionality of accessing a wallet by leveraging what we learned in [Step 2]() for creating wallets.
+
+Recall that we've built a type of wallet called a Hierarchical Deterministic (HD) wallet, which means we can map our 12-word phrase to a seed. Since the keypair that makes the account is derived from this seed, as long as we have access to the recover phrase, we can get access to the keypair and therefore the account. 
+
+<!-- Aside: in the context of an industrial-strength wallet, you'll be using the phrase as a recovery mechanism and will leverage other simpler methods for day-to-day access but the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds -->
+
+If you saved your test account's recovery phrase, we'll use it now. Feel free to click log out at the top right without worry. Once we've finished this step, you'll once again have access to your devnet SOL.
+
 ### Challenge
+
+You should now be in hte app's home page at [http://localhost:3000](http://localhost:3000). If you click on the **Get Existing Wallet** button, you'll be routed to the page for importing the recovery phrase. But if you click on **Import** after pasting your phrase, you'll notice a message in the console that reads, "Recovery functionality not implemented yet!".
+
+For this feature to work, we need to implement a function that uses the phrase to generate a seed and then uses the seed to access the account. Navigate to `pages/recover.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 6.1]() below.
+
+\*\*\*Listing 6.1
+
+```
+--> code here
+```
 
 ### Implementation
 
