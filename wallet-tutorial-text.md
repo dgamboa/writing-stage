@@ -1,23 +1,27 @@
 # Wallet Tutorial
 
-In this tutorial, you'll learn to develop a wallet for the [Solana](https://solana.com/) protocol. As you build, we'll dive into some of the fundamentals of Web3 so you can start cultivating an understanding for blockchain technology and decentralized applications (dApps). 
+In this tutorial, you'll learn to develop a wallet for the [Solana](https://solana.com/) protocol. As you build, we'll dive into some of the fundamentals of Web3 so you can start cultivating an understanding for blockchain technology and decentralized applications (dApps).
 
 ## Step 1: Up and Running
 
 ### Prerequisites
+
 There are no formal blockchain or Web3 prerequisites for this tutorial, but ideally you have some experience with [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). You should also know what [Solana](https://solana.com/) is at a very high level (i.e. a public blockchain protocol capable of running smart contracts with significant scalability advantages), even if that means nothing more than having read a blog post or listened to a podcast about it.
 
 Feel free to give it a shot even if you don't meet the above prerequisites since you'll likely get a lot out of it anyway. Just be extra patient because it may be more difficult to navigate the pre-built app and the Solana functionality we'll be developing.
 
 ### System Dependencies
+
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install) installed.
 
 ### Setting Up
+
 You'll be building Solana interactions on top of a [Next.js](https://nextjs.org/) app that we have pre-built for you. This way you can skip the development phases you're familiar with (e.g. writing React components and Next pages) and dive right into the blockchain-specific phases.
 
 First, clone [the repo](https://github.com) in your system and install the app dependencies by running the following three commands in your terminal:
 
-***Listing 1.1
+\*\*\*Listing 1.1
+
 ```
 $ git clone --> add repo link here
 $ cd wallet-tutorial
@@ -26,7 +30,8 @@ $ yarn
 
 Then, run `yarn dev` in your terminal to start the development server on port 3000. The terminal should print output similar to that in [Listing 1.2]() prompting you that the app is available to be viewed at [http://localhost:3000](http://localhost:3000).
 
-***Listing 1.2
+\*\*\*Listing 1.2
+
 ```
 yarn run v1.22.11
 $ next dev
@@ -36,42 +41,47 @@ event - compiled successfully
 ```
 
 ### App Preview
+
 By the time you're done with this tutorial, you'll have a functional wallet capable of changing the state of the Solana blockchain by receiving and transferring on-chain funds. In [Step 2](), we'll create a wallet by generating a special phrase unique to that wallet.
 
-***Insert GIF of wallet creation
+\*\*\*Insert GIF of wallet creation
 
 Then we'll build a function to fetch the balance of our newly created wallet in [Step 3]() before leverage functionality to issue "test tokens" through something called an "airdrop" that we'll explore in [Step 4](). We'll build the ability to transfer funds to another wallet in [Step 5]().
 
-***Insert GIF of wallet dashboard, airdrop and transfer
+\*\*\*Insert GIF of wallet dashboard, airdrop and transfer
 
 Finally, we'll use the phrase we generated in [Step 2]() to sign into an account and recover access to its funds and functionality in [Step 6]().
 
-***Insert GIF of wallet recovery
+\*\*\*Insert GIF of wallet recovery
 
 Although building a production-ready, non-custodial wallet like Phantom or MetaMask is beyond the scope of this tutorial, by the end of it you'll have developed a foundation of judgment that will let you better allocate your learning time as you explore new projects. To assist with that, we'll end the tutorial with a list of [additional resources]() that you'll be well prepared to expand into.
 
 ## Step 2: Creating a Wallet
+
 Crypto wallets are one of the critical pieces of user-facing blockchain infrastructure. In the same way that the browser brought the web to a mass audience by providing an easy-to-use gateway into the underlying servers and databases, wallets provide users with an easy way to interact with a blockchain protocol.
 
 A wallet is less like the wallet you use for you credit cards, and a lot more like a key chain. If you think of a blockchain as a giant room of digital storage lockers, wallets are the key chains where you keep the keys to your locker. And once you have access, you can manage the contents of that locker by receiving, sending, and spending the digital assets it contains.
 
-Anyone with access to these keys has access to the locker, which is why it's important for users to keep them private - hence their name, private keys. The locker or account is called a public key. And as opposed to physical lockers, but similar to mailing letters or sending dollars to a bank account, anyone with the public key can send digital assets to that account. That's why public keys are also referred to as public addresses. 
+Anyone with access to these keys has access to the locker, which is why it's important for users to keep them private - hence their name, private keys. The locker or account is called a public key. And as opposed to physical lockers, but similar to mailing letters or sending dollars to a bank account, anyone with the public key can send digital assets to that account. That's why public keys are also referred to as public addresses.
 
 We'll be building a type of wallet called a Hierarchical Deterministic (HD) wallet. We don't need to dive into the full definition of HD wallets here, but it's important to know that they enable the ability to store the private key as a 12-, 18-, or 24-word phrase referred to as a secret recovery phrase or mnemonic phrase. You'll be using a JavaScript library called Bip39 to facilitate the generation of this phrase, which in turn can be converted into a private key to create a wallet.
 
 <!-- Potential for an aside box here on a brief history of wallets to drive home the point that most wallets today are HD wallets and conform to BIP39 -->
 
 ### Challenge
+
 If you haven't already, open the app in your browser at [http://localhost:3000](http://localhost:3000). You'll notice the frontend offers the user the ability to create a new wallet. Clicking on `Create New Wallet` routes the user to a generate page signaling to our user that by clicking `Generate`, the app will generate a key phrase (i.e. create a wallet). But when we click `Generate`, nothing shows up in the phrase container.
 
 For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when this page renders. Navigate to `pages/phrase.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 1.3]() below.
 
-***Listing 2.1
+\*\*\*Listing 2.1
+
 ```
 --> code here
 ```
 
 ### Implementation
+
 In order to generate the phrase, we need to leverage an external library that satisfies the BIP39 specification. Fortunately, there's [Bip39](https://github.com/bitcoinjs/bip39), which provides us with the functionality we need to generate the phrase and later convert it into the seed we need to generate our Solana wallet keys.
 
 We have already installed the library when we ran `yarn` during set up because we included it into the `package.json` included in the pre-built app. So all that's left is to import it:
@@ -103,21 +113,19 @@ We notice that the Keypair class has a method, `fromSeed` that generates a keypa
 Going back to the Bip39 library we see a method called `mnemonicToSeedSync(mnemonic)` that returns some sort of `Buffer` object that looks like a list of hexadecimal numbers. We can test this by adding running it in our application and passing in the mnemonic we generated:
 
 ```javascript
-const seed = Bip39.mnemonicToSeedSync(generatedMnemonic)
-console.log(seed)
-
-// console:
-> Uint8Array(64)
+const seed = Bip39.mnemonicToSeedSync(generatedMnemonic);
+console.log(seed) >
+  // console:
+  Uint8Array(64);
 ```
 
 It looks like we're close. The Keypair class requires a 32-byte `Uint8Array` and we're getting a 64-byte `Uint8Array`. We can slice the seed and keep only the first 32 bytes:
 
 ```javascript
-const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32)
-console.log(seed)
-
-// console:
-> Uint8Array(32)
+const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32);
+console.log(seed) >
+  // console:
+  Uint8Array(32);
 ```
 
 With the seed in that format, we can use Keypair's `fromSeed` method to generate an account keypair:
@@ -130,17 +138,19 @@ We then set the account into the context state manager and we have access to a S
 
 You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3]() while implementing the crucial functionality of showing users their balance in the next step. In [Step 4]() we'll dive into airdrops and make the Airdrop button functional, and in [Step 5]() we'll enable the Send button and transfer funds.
 
-***Listing 2.2: Code for Creating a Wallet
+\*\*\*Listing 2.2: Code for Creating a Wallet
+
 ```javascript
 const generatedMnemonic = Bip39.generateMnemonic();
 setMnemonic(generatedMnemonic);
 
-const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32)
+const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32);
 const newAccount = Keypair.fromSeed(seed);
 setAccount(newAccount);
 ```
 
 ## Step 3: Fetching a Balance
+
 Crypto wallets serve one key function. By storing your private keys, they allow you to manage - transfer, receive, organize - your digital assets. Part of that function requires the wallet to retrieve certain data that is stored on the blockchain to display on your user dashboard. Balances are one of the most important pieces of information users view on their wallet dashboards.
 
 A balance represents a certain amount of cryptocurrency or tokens held by a specific account. If you think of the blockchain as a database that keeps ownership records, and of the public keys as the owner IDs, then you can think of the balances as an integer column in the database that tracks how much of a certain token each owner ID holds.
@@ -154,16 +164,19 @@ Solana has a production network called mainnet and two exploration networks call
 You'll notice the wallet includes a dropdown at the top-right that allows users to select what network they want to connect to. This allows the wallet to manage assets specific to the connected network. Our default network is devnet since we'll be using it to leverage test tokens in [Step 4]() and then transfer them in [Step 5](), but the functionality we'll build will work for any of the Solana networks.
 
 ### Challenge
+
 In the last step, we discussed how a wallet is more like a keychain that holds keypairs representing an account address and the key to access it. We built a function that allowed us to generate a unique account and the corresponding phrase that works like a password for accessing the account. Now we need to connect with the Solana blockchain so we can fetch the account's balance, which at this point should be zero since we just created it.
 
-If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1]() below. 
+If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1]() below.
 
-***Listing 3.1
+\*\*\*Listing 3.1
+
 ```
 --> code here
 ```
 
 ### Implementation
+
 The first step for interacting with any blockchain is to instantiate a connection. Conveniently there's a Connection class in web3.js designed to do just that. By reviewing the documentation, we notice the Connection constructor requires two argument: `endpoint: string` and `commitmentOrConfig?: Commitment | ConnectionConfig`.
 
 The description for `endpoint` mentions that it's a "URL to the fullnode JSON RPC endpoint". Since we don't have a URL for the connection, we need to either find one from Solana or look for a function that will return a URL. By searching the web3.js docs for "URL", we see that there's a function called `clusterApiUrl` that returns the "RPC API URL for the specified cluster". Moreover, if we review the Cluster type, we see that it refers to the network we want to connect to.
@@ -189,14 +202,15 @@ Reviewing the `getBalance` method on Connection, we can see it expects the accou
 ```javascript
 const publicKey = account.publicKey;
 const balance = await connection.getBalance(publicKey);
-console.log(balance)
+console.log(balance);
 ```
 
 There are a few ways to structure this part of the function. We've chosen to assign a variable, `publicKey`, to the account's public key, and then pass that into `getBalance` to query the network for the balance. From the docs, we know `getBalance` returns a promise so we use `await` and assign its return value to the `balance` variable. By logging `balance`, we can see our account has zero balance as expected.
 
 But that's a bit anticlimactic. We know it's a new account and it should have zero balance. Nothing changed on the frontend because the default value was zero. We need to fund the account to see the balance change, and we'll do just that in the next step.
 
-***Listing 3.2: Code for Fetching a Balance
+\*\*\*Listing 3.2: Code for Fetching a Balance
+
 ```javascript
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
   if (!account) return;
@@ -204,8 +218,8 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
   try {
     const connection = new Connection(clusterApiUrl(network), "confirmed");
     const publicKey = account.publicKey;
-    const balance = await connection.getBalance(publicKey);;
-    return balance
+    const balance = await connection.getBalance(publicKey);
+    return balance;
   } catch (error) {
     console.log(error);
     return 0;
@@ -214,6 +228,7 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
 ```
 
 ## Step 4: Airdropping Funds
+
 We've now generated a wallet and connected it to the Solana blockchain. In the previous step, we confirmed that our account's balance is zero but wouldn't it be nice to fund our account so we can see the balance change? You might be wondering whether we'll now need to transfer real money so we can test the account, but as we discussed in [Step 3](), a blockchain's devnet typically provides a way to test transactions without risking real economic value.
 
 In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
@@ -225,14 +240,17 @@ On the right of the wallet dashboard, you'll find a button with the label Airdro
 Once we've completed it this step, our balance will automatically increase when we click Airdrop. This will position us well for [Step 5]() where we'll build functionality to send funds to other Solana accounts.
 
 ### Challenge
-If you open the browser's console from the `/wallet` page, and click on the Airdrop button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1]() below. 
 
-***Listing 4.1
+If you open the browser's console from the `/wallet` page, and click on the Airdrop button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1]() below.
+
+\*\*\*Listing 4.1
+
 ```
 --> code here
 ```
 
 ### Implementation
+
 In [Step 3]() we learned how to instantiate a connection to one of Solana's networks, and how to assign our account's public key property to a variable, so we can apply that same code here:
 
 ```javascript
@@ -242,15 +260,12 @@ const publicKey = account.publicKey;
 
 Following our previous heuristic of searching the docs for keywords, we can now search for "airdrop" to see if perhaps there's a function we can leverage. Lo an behold the Connection class has a `requestAirdrop` function that looks promising. It takes in a public key and a lamports number, and returns a promise that resolves to a string. It's not clear from the documentation, but after a little research you can confirm that the returned string represents a confirmation ID or signature.
 
-From a function design standpoint, it seems reasonable that to request an airdrop we should pass in the account address (public key) and the amount of funds we're requesting. You might be wondering what a Lamport is. Solana's native token, SOL, is divisible into 1 billion Lamports. You can think of Lamports as the cents to SOL's dollar. 
+From a function design standpoint, it seems reasonable that to request an airdrop we should pass in the account address (public key) and the amount of funds we're requesting. You might be wondering what a Lamport is. Solana's native token, SOL, is divisible into 1 billion Lamports. You can think of Lamports as the cents to SOL's dollar.
 
 <!-- Consider an aside on Leslie Lamport -->
 
 ```javascript
-const confirmation = await connection.requestAirdrop(
-  publicKey,
-  1000000000
-);
+const confirmation = await connection.requestAirdrop(publicKey, 1000000000);
 ```
 
 The above function will work just fine and our users will be able to airdrop 1 SOL every time they click on the button. But you can clean it up a bit by leveraging the `LAMPORTS_PER_SOL` constant from web3.js.
@@ -281,12 +296,13 @@ return await refreshBalance(network, account);
 Avid readers might have noticed that the balance in our account looks wrong. It reads one billion SOL when it should read 1 SOL. Now that we know what Lamports are, how they relate to SOL, and how to use the `LAMPORTS_PER_SOL` constant, we can go back to our `refreshBalance` function and fix the bug by updating the return value.
 
 ```javascript
-return balance / LAMPORTS_PER_SOL
+return balance / LAMPORTS_PER_SOL;
 ```
 
 We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered some of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](), so buckle up.
 
-***Listing 4.2: Code for Airdropping Funds
+\*\*\*Listing 4.2: Code for Airdropping Funds
+
 ```javascript
 const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
   if (!account) return;
@@ -323,6 +339,7 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
 ```
 
 ## Step 5: Transferring Funds
+
 Now that we've funded our account with test tokens on devnet, we can start to think about how we might use those funds. In a real-world application, we might want to swap SOL for another token, pay for a good or service in SOL, or even gift someone some SOL. To do that we need a way to let the network ledger know that our account should transfer funds to another account.
 
 Thinking about it from first principles, we know we'll need a function that takes in two addresses - the sender and the recipient. We also know that we'll need to pass in an amount - the number of SOL or Lamports that we want to send.
@@ -342,17 +359,151 @@ The concept of cryptographic signing is fascinating, but well beyond the scope o
 With those building blocks in mind, we're ready to search the docs for a way to send and confirm a transaction.
 
 ### Challenge
-If you click on the Send button on the wallet dashboard, a drawer component opens up that shows a form structured as a paper check. It includes all the components of a transaction but the Sign and Send button doesn't work yet.
 
-Navigate to `components/TransactionLayout/index.tsx` in your editor and follow the steps included as comments to finish writing the `transfer` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 5.1]() below. 
+If you click on the Send button on the wallet dashboard, a drawer component opens up that shows a form structured as a paper check thus building on our analogy above. It includes all the components of a transaction but the Sign and Send button doesn't work yet.
 
-***Listing 5.1
+Navigate to `components/TransactionLayout/index.tsx` in your editor and follow the steps included as comments to finish writing the `transfer` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 5.1]() below.
+
+\*\*\*Listing 5.1
+
 ```
 --> code here
 ```
 
 ### Implementation
 
+Based on [Step 3]() and [Step 4]() we know that we're going to need a conncetion to the network. We can once again leverage our previous code:
+
+```javascript
+const connection = new Connection(clusterApiUrl(network), "confirmed");
+```
+
+We can guess that we'll need to build some sort of transaction object and send it through the connection, but it's not immediately obvious how we might do that. By searching the docs, it looks like there are two ways to send transactions - the Connection method `sendTransaction` and the general function `sendAndConfirmTransaction`. We're going to want to request a confirmation so we can update our balance after sending the transaction, so the latter seems like a good option to try.
+
+Reading through the function's specs, it looks like we need to pass in a connection, some sort of transaction object and a signers array. Moreover, the description says that this function will "sign, send and confirm a transaction" so it looks like we're on the right track. We can begin by importing this function and using it, knowing that we're going to build out its inputs next.
+
+```javascript
+const confirmation = await sendAndConfirmTransaction(
+  connection,
+  transaction,
+  signers
+);
+```
+
+We already have a `connection`, so we can immediately turn to the transaction parameter. Following the link to the Transaction parameter in the docs, it looks like to create a transaction object, we can use its constructor.
+
+```javascript
+const transaction = new Transaction()
+console.log(transaction)
+
+// console:
+> Transaction {signatures: Array(0), feePayer: undefined, instructions: Array(0), recentBlockhash: undefined, nonceInfo: undefined}
+```
+
+Looking at the transaction we created, it clearly lacks any of the components we need for a valid transaction like sender, recipient and amount, but it seems to have a rational structure that we should be able to populate. You could research each of them, but let's jump right into instructions as it seems like a promising place to start.
+
+Unfortunately, the docs aren't very intuitive in how to progress but don't dispair. There's a very useful class called SystemProgram with a `transfer` method that "generates a transaction instruction that transfers lamports from one account to another." This seems like exactly what we need.
+
+The `transfer` method takes in an object of `TransferParams` type that requires a sender, recipient and amount in Lamports. That matches the data we're hoping to use for our transaction and we can get that from state from our account and form. The resulting instructions looks like this:
+
+```javascript
+const instructions = SystemProgram.transfer({
+  fromPubkey: account.publicKey,
+  toPubkey: new PublicKey(form.to),
+  lamports: form.amount,
+});
+```
+
+To incorporate these into our transaction, we can use the `add` method:
+
+```javascript
+transaction.add(instructions);
+```
+
+Or with a bit of on the fly refactoring, we can simply instantiate the transaction after creating the instructions and add them immediately:
+
+```javascript
+const transaction = new Transaction().add(instructions);
+```
+
+We have two out of the three parameters ready for the `sendAndConfirmTransaction` function, connection and transaction. Now we need the signers array. From the function's specification, we know signers will be an array with at least one Signer object. Reviewing the Signer type in the docs, it looks like it's an object with two properties - `publicKey` and `privateKey`. We can get both of those from our `account`, so we can build the signers array.
+
+```javascript
+const signers = [
+  {
+    publicKey: account.publicKey,
+    secretKey: account.secretKey,
+  },
+];
+```
+
+Now that all three parameters are complete, we can finally call `sendAndConfirmTransaction` and await its confirmation.
+
+```javascript
+const confirmation = await sendAndConfirmTransaction(
+  connection,
+  transaction,
+  signers
+);
+```
+
+We have a fully functional feature capable of transferring funds between Solana accounts. To complete the feature, we need to make sure we call the `refreshBalance` function to update the account's balance after transferring funds.
+
+```javascript
+const updatedBalance = await refreshBalance(network, account);
+setBalance(updatedBalance);
+```
+
+You should make sure you airdropped some devnet SOL into your account and test transferring some SOL to another account, preferably another account that you also control. Once you fill in the public address of your recipient amount and the amount, say 1,000,000 Lamports, the Sign and Send button will be enabled. Once you click sign and send you will see a successful message displayed at the top along with a link at the top left of the check to the Solana Block Explorer.
+
+The Solana Block Explorer is a simple dashboard that allows you to search for specific blocks, accounts, transactions, contracts and tokens by network. It displays all the information related to the item you searched for. In this case, if you click the link, you'll be able to see a basic overview of the transfer you just issued. In the middle of the page, you'll see our transfer's information - mainly, the sender (your public address) and how much SOL you sent; and the recipient (the other public address) and how much SOL they received.
+
+At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6]() where we'll be once again leveraging `Bip39` to access an account based on a mnemonic phrase.
+
+\*\*\*Listing 5.2: Code for Transferring Funds
+
+```javascript
+const transfer = async () => {
+  if (!account) return;
+
+  try {
+    setTransactionSig("");
+
+    const connection = new Connection(clusterApiUrl(network), "confirmed");
+
+    const instructions = SystemProgram.transfer({
+      fromPubkey: account.publicKey,
+      toPubkey: new PublicKey(form.to),
+      lamports: form.amount,
+    });
+
+    const transaction = new Transaction().add(instructions);
+
+    const signers = [
+      {
+        publicKey: account.publicKey,
+        secretKey: account.secretKey,
+      },
+    ];
+
+    setSending(true);
+    const confirmation = await sendAndConfirmTransaction(
+      connection,
+      transaction,
+      signers
+    );
+    setTransactionSig(confirmation);
+    setSending(false);
+
+    const updatedBalance = await refreshBalance(network, account);
+    setBalance(updatedBalance);
+    message.success(`Transaction confirmed`);
+  } catch (error) {
+    message.error("Transaction failed, please check your inputs and try again");
+    console.log(error);
+  }
+};
+```
 
 ## Step 6: Recovering an Account
 
@@ -361,4 +512,5 @@ Navigate to `components/TransactionLayout/index.tsx` in your editor and follow t
 ### Implementation
 
 ## Conclusion
+
 <!-- Review the application layout to solidify how everything is working together and where everything lives -->
