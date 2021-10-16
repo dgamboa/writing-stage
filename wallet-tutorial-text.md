@@ -191,10 +191,35 @@ In the last step, we discussed how a wallet is more like a keychain that holds k
 
 If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1]() below.
 
-\*\*\*Listing 3.1
+*Listing 3.1*
+```javascript
+// *Step 3*: implement a function that gets an account's balance
+const refreshBalance = async (network: Cluster, account: Keypair | null) => {
+  if (!account) return 0;
 
-```
---> code here
+  try {
+    // (a) review the import guidance on line 1
+    // (b) instantiate a connection using clusterApiUrl with the active network
+    // Documentation References:
+    //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
+    console.log("Balance functionality not implemented yet!")
+    const connection = "";
+
+    // (c) get the key using one of the accesors for active account
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
+    const publicKey = "";
+
+    // (d) get the account's balance using the connection instance
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    const balance = 0
+
+    return balance
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+};
 ```
 
 ### Implementation
@@ -231,7 +256,7 @@ There are a few ways to structure this part of the function. We've chosen to ass
 
 But that's a bit anticlimactic. We know it's a new account and it should have zero balance. Nothing changed on the frontend because the default value was zero. We need to fund the account to see the balance change, and we'll do just that in the next step.
 
-\*\*\*Listing 3.2: Code for Fetching a Balance
+*Listing 3.2: Code for Fetching a Balance*
 
 ```javascript
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
