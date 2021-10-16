@@ -20,7 +20,7 @@ You'll be building Solana interactions on top of a [Next.js](https://nextjs.org/
 
 First, clone [the repo](https://github.com) in your system and install the app dependencies by running the following three commands in your terminal:
 
-\*\*\*Listing 1.1
+*Listing 1.1*
 
 ```
 $ git clone --> add repo link here
@@ -30,7 +30,7 @@ $ yarn
 
 Then, run `yarn dev` in your terminal to start the development server on port 3000. The terminal should print output similar to that in [Listing 1.2]() prompting you that the app is available to be viewed at [http://localhost:3000](http://localhost:3000).
 
-\*\*\*Listing 1.2
+*Listing 1.2*
 
 ```
 yarn run v1.22.11
@@ -74,15 +74,35 @@ If you haven't already, open the app in your browser at [http://localhost:3000](
 
 For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when this page renders. Navigate to `pages/phrase.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 1.3]() below.
 
-\*\*\*Listing 2.1
+*Listing 2.1*
 
-```
---> code here
+```javascript
+useEffect(() => {
+  // *Step 1*: implement a function that generates a mnemonic when the page renders, and uses it to create an account
+  // (a) review the import guidance on lines 9 and 11
+  // (b) generate a mnemonic phrase by importing Bip39 and then implementing the appropriate method on the imported Bip39 instance
+  // Documentation Reference: https://github.com/bitcoinjs/bip39
+  const generatedMnemonic = "";
+
+  // This line saves the mnemonic phrase to context state so we can display it for the wallet user to copy
+  setMnemonic(generatedMnemonic);
+
+  // (c) convert the mnemonic to seed bytes
+  // Documentation Reference: https://github.com/bitcoinjs/bip39
+  const seed = new Uint8Array();
+
+  // (d) use the seed to generate a new account (i.e. a new keypair)
+  // Documentation Reference: https://solana-labs.github.io/solana-web3.js/
+  const newAccount = null;
+
+  // This line sets the account to context state so it can be used by the app
+  setAccount(newAccount);
+}, []);
 ```
 
 ### Implementation
 
-In order to generate the phrase, we need to leverage an external library that satisfies the BIP39 specification. Fortunately, there's [Bip39](https://github.com/bitcoinjs/bip39), which provides us with the functionality we need to generate the phrase and later convert it into the seed we need to generate our Solana wallet keys.
+In order to generate the phrase, we need to leverage an external library that satisfies the [BIP39]() specification. Fortunately, there's [Bip39](https://github.com/bitcoinjs/bip39), which provides us with the functionality we need to generate the phrase and later convert it into the seed we need to generate our Solana wallet keys.
 
 We have already installed the library when we ran `yarn` during set up because we included it into the `package.json` included in the pre-built app. So all that's left is to import it:
 
@@ -96,7 +116,7 @@ Recall that secret recovery phrases are also called mnemonics and Bip39 includes
 const generatedMnemonic = Bip39.generateMnemonic();
 ```
 
-This allows us to set the phrase in state and display it for our wallet user to store safely. In fact, with this we have already created our wallet or account because the phrase by itself will allow its holder to access the account that matches it. You could say that blockchain accounts aren't created. Because these accounts are mathematical addresses in a system where the number of accounts is established by the its architecture, it's more accurate to think of the mnemonic as obtaining the key to access a pre-existing account.
+This allows us to set the phrase in state and display it for our wallet user to store safely. In fact, with this we have already created our wallet or account because the phrase by itself will allow its holder to access the account that matches it. You could say that blockchain accounts aren't created. Because these accounts are mathematical addresses in a system where the number of accounts is established by its architecture, it's more accurate to think of the mnemonic as obtaining the key to access a pre-existing account.
 
 <!-- Consider aside on why phrases are also called mnemonics -->
 
@@ -110,22 +130,24 @@ By reviewing Solana's web3.js documentation, we can see that there is a Keypair 
 
 We notice that the Keypair class has a method, `fromSeed` that generates a keypair from a 32-byte seed. It also mentions that the seed needs to be a `Uint8Array`, which means we'll need a way to convert our `string` phrase into a `Uint8Array`.
 
-Going back to the Bip39 library we see a method called `mnemonicToSeedSync(mnemonic)` that returns some sort of `Buffer` object that looks like a list of hexadecimal numbers. We can test this by adding running it in our application and passing in the mnemonic we generated:
+Going back to the Bip39 library we see a method called `mnemonicToSeedSync(mnemonic)` that returns some sort of `Buffer` object that looks like a list of hexadecimal numbers. We can test this by running it in our application and passing in the mnemonic we generated:
 
 ```javascript
 const seed = Bip39.mnemonicToSeedSync(generatedMnemonic);
-console.log(seed) >
-  // console:
-  Uint8Array(64);
+console.log(seed)
+
+// console:
+> Uint8Array(64);
 ```
 
 It looks like we're close. The Keypair class requires a 32-byte `Uint8Array` and we're getting a 64-byte `Uint8Array`. We can slice the seed and keep only the first 32 bytes:
 
 ```javascript
 const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32);
-console.log(seed) >
-  // console:
-  Uint8Array(32);
+console.log(seed)
+
+// console:
+> Uint8Array(32);
 ```
 
 With the seed in that format, we can use Keypair's `fromSeed` method to generate an account keypair:
@@ -138,7 +160,7 @@ We then set the account into the context state manager and we have access to a S
 
 You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3]() while implementing the crucial functionality of showing users their balance in the next step. In [Step 4]() we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5]() we'll enable the Send button and transfer funds.
 
-\*\*\*Listing 2.2: Code for Creating a Wallet
+*Listing 2.2: Code for Creating a Wallet*
 
 ```javascript
 const generatedMnemonic = Bip39.generateMnemonic();
