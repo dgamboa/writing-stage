@@ -556,4 +556,23 @@ const handleImport = async (values: any) => {
 
 ## Conclusion
 
-<!-- Review the application layout to solidify how everything is working together and where everything lives -->
+Congratulations! You've built a crypto wallet that is capable of managing on-chain digital assets on the Solana protocol. That's no small feat!
+
+By writing a function to generate a mnemomic phrase and using it to create a keypair in [Step 2](), you linked the wallet app to an account. You then implemented functionality to connect to one of Solana's networks to fetch data from it in [Step 3](), in this case the account's balance. Next, you wrote functionality to request test tokens via an airdrop in [Step 4](). And after that you sent some of those funds to another account by learning how to initiate and confirm fund transfers in [Step 5](). Finally, you learned how to recover an account in [Step 6]() by leveraging the same code we used in [Step 2]().
+
+In the process of building the wallet, you also learned some of the fundamentals of developing for Web 3. You learned how the frontend part of the stack is identical to what you're already used to. You also learned that interacting with blockchain protocols means leveraging API libraries that help you create, read and update data in a familiar way. Importantly, you learned just enough about public-key cryptography, crypto wallets, and blockchain concepts like airdrops, keypairs, and mnemonics to unlock a whole world of learning paths to explore next.
+
+Web 3 holds a world of promise for the future of the internet. More importantly, there are vasts areas of greenspace for developers to build amazing things and a ton of low hanging fruit to experiment. 
+
+If you want to connect with an amazing community of developers, join us on Discord. The opportunities are endless and we wish you well on your continued journey!
+
+## Additional Resources
+
+- Figment Learn Pathways
+- BIP32: On HD Wallets
+- BIP39: On Recovery Phrases
+- Seth Godin on Blockchain
+- Solana Documentation
+- Solana Web3.js Documentation
+- The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Cryptography by Simon Singh
+- Crypto: How the Code Rebels Beat the Government Saving Privacy in the Digital Age by Steven Levy
