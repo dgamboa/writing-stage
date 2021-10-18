@@ -448,10 +448,58 @@ If you click on the Send button on the wallet dashboard, a drawer component open
 
 Navigate to `components/TransactionLayout/index.tsx` in your editor and follow the steps included as comments to finish writing the `transfer` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 5.1]() below.
 
-\*\*\*Listing 5.1
+*Listing 5.1*
 
-```
---> code here
+```javascript
+// *Step 4*: implement a function that transfer funds
+const transfer = async () => {
+  // This line ensures the function returns before running if no account has been set
+  if (!account) return;
+
+  try {
+    // (a) review the import guidance on line 1
+    // (b) instantiate a connection using clusterApiUrl with the active network
+    // Documentation References:
+    //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
+    console.log("Sign and Send not yet implemented!");
+    const connection = "";
+    setTransactionSig("");
+    // (c) leverage the SystemProgram class to create transfer instructions that include your account's public key, the public key from your sender field in the form, and the amount from the form
+    // Documentation Reference:
+    //   https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html
+    //   https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html#transfer
+    const instructions = {};
+
+    // (d) instantiate a transaction object and add the instructions
+    // Documentation Reference:
+    //   https://solana-labs.github.io/solana-web3.js/classes/Transaction.html
+    //   https://solana-labs.github.io/solana-web3.js/classes/Transaction.html#add
+    const transaction = {};
+
+    // (e) use your account to create a signers interface
+    // Documentation Reference:
+    //   https://solana-labs.github.io/solana-web3.js/interfaces/Signer.html
+    //   note: signers is an array with a single item - an object with two properties
+    const signers = [{}];
+
+    setSending(true);
+    // (f) send the transaction and await its confirmation
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
+    const confirmation = "";
+    setTransactionSig(confirmation);
+    setSending(false);
+
+    const updatedBalance = await refreshBalance(network, account);
+    setBalance(updatedBalance);
+    message.success(`Transaction confirmed`);
+  } catch (error) {
+    console.log(error);
+    message.error(
+      "Transaction failed, please check your inputs and try again"
+    );
+  }
+};
 ```
 
 ### Implementation
@@ -544,7 +592,7 @@ The Solana Block Explorer is a simple dashboard that allows you to search for sp
 
 At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6]() where we'll be once again leveraging `Bip39` to access an account based on a mnemonic phrase.
 
-\*\*\*Listing 5.2: Code for Transferring Funds
+*Listing 5.2: Code for Transferring Funds*
 
 ```javascript
 const transfer = async () => {
@@ -601,14 +649,31 @@ If you saved your test account's recovery phrase, we'll use it now. Feel free to
 
 ### Challenge
 
-You should now be in hte app's home page at [http://localhost:3000](http://localhost:3000). If you click on the **Get Existing Wallet** button, you'll be routed to the page for importing the recovery phrase. But if you click on **Import** after pasting your phrase, you'll notice a message in the console that reads, "Recovery functionality not implemented yet!".
+You should now be in the app's home page at [http://localhost:3000](http://localhost:3000). If you click on the **Get Existing Wallet** button, you'll be routed to the page for importing the recovery phrase. But if you click on **Import** after pasting your phrase, you'll notice a message in the console that reads, "Recovery functionality not implemented yet!".
 
 For this feature to work, we need to implement a function that uses the phrase to generate a seed, and then uses the seed to retrieve the keypair (i.e. access the account). Navigate to `pages/recover.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 6.1]() below.
 
-\*\*\*Listing 6.1
+*Listing 6.1*
 
-```
---> code here
+```javascript
+// *Step 6*: implement a function that recovers an account based on mnemonic
+const handleImport = async (values: any) => {
+  setLoading(true);
+  const inputMnemonic = values.phrase.trim().toLowerCase();
+  setMnemonic(inputMnemonic);
+
+  // (a) review the import guidance on lines 9 and 11
+  // (b) convert the mnemonic to seed bytes
+  // Documentation Reference: https://github.com/bitcoinjs/bip39
+  const seed = new Uint8Array();
+
+  // (c) use the seed to import the account (i.e. keypair)
+  // Documentation Reference:
+  //   https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
+  //   https://solana-labs.github.io/solana-web3.js/classes/Keypair.html#fromSeed
+  const importedAccount = null;
+  setAccount(importedAccount);
+};
 ```
 
 ### Implementation
@@ -624,7 +689,7 @@ const importedAccount = Keypair.fromSeed(seed);
 
 With those two lines of code, we have effectively implemented authentication and allowed users to access their accounts from any device as long as they have their recovery phrase.
 
-\*\*\*Listing 6.2: Code for Recovering an Account
+*Listing 6.2: Code for Recovering an Account*
 
 ```javascript
 const handleImport = async (values: any) => {
@@ -652,11 +717,12 @@ If you want to connect with an amazing community of developers, join us on Disco
 
 ## Additional Resources
 
-- Figment Learn Pathways
-- BIP32: On HD Wallets
-- BIP39: On Recovery Phrases
-- Seth Godin on Blockchain
-- Solana Documentation
-- Solana Web3.js Documentation
-- The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Cryptography by Simon Singh
-- Crypto: How the Code Rebels Beat the Government Saving Privacy in the Digital Age by Steven Levy
+- [Figment Learn Pathways](https://learn.figment.io/)
+- [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki): On HD Wallets
+- [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki): On Recovery Phrases
+- [Why the Blockchain Matters](https://seths.blog/2021/05/why-the-blockchain-matters/) by Seth Godin
+- [The Quest for Digital Cash](https://bitcoinmagazine.com/.amp/culture/bitcoin-adam-back-and-digital-cash) by Bitcoin Magazine
+- [Solana Documentation](https://docs.solana.com/developing/programming-model/overview)
+- [Solana Web3.js Documentation](https://solana-labs.github.io/solana-web3.js/)
+- [The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Cryptography](https://www.worldcat.org/title/code-book-the-science-of-secrecy-from-ancient-egypt-to-quantum-cryptography/oclc/738479322) by Simon Singh
+- [Crypto: How the Code Rebels Beat the Government Saving Privacy in the Digital Age](https://www.worldcat.org/title/crypto-how-the-code-rebels-beat-the-government-saving-privacy-in-the-digital-age/oclc/44818667) by Steven Levy
