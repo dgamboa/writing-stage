@@ -52,7 +52,7 @@ After the challenge, we provide a step-by-step discussion of building the functi
 
 By the time you're done with this tutorial, you'll have a functional wallet capable of changing the state of the Solana blockchain by receiving and transferring on-chain funds. In [Step 2](#step-2-creating-a-wallet), we'll create a wallet by generating a special phrase unique to that wallet.
 
-![](./public/phrase.png)
+![](./public/create.png)
 
 Then we'll build a function to fetch the balance of our newly created wallet in [Step 3](#step-3-fetching-a-balance) before leveraging functionality to issue "test tokens" through something called an "airdrop" that we'll explore in [Step 4](#step-4-airdropping-funds).
 
@@ -65,7 +65,7 @@ Having added funds to our wallet, we'll build the ability to transfer funds to a
 
 Finally, we'll use the phrase we generated in [Step 2](#step-2-creating-a-wallet) to sign into an account and recover access to it in [Step 6](#step-6-recovering-an-account).
 
-![](./public/recover.png)
+![](./public/import.png)
 
 Although building a production-ready, non-custodial wallet like Phantom or MetaMask is beyond the scope of this tutorial, by the end of it you'll have developed a foundation of judgment that will let you better allocate your learning time as you explore new projects. To assist with that, we'll end the tutorial with a list of [additional resources](#additional-resources) that you'll be well prepared to explore.
 
