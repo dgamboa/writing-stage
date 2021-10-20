@@ -4,7 +4,7 @@ In this tutorial, you'll learn to develop a wallet for the [Solana](https://sola
 
 ### Prerequisites
 
-There are no formal blockchain or Web 3 prerequisites for this tutorial, but ideally you have some experience with [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). Ideally you will have heard about [Solana](https://solana.com/), and know that it's a public blockchain protocol capable of running smart contracts with significant scalability advantages.
+There are no formal blockchain or Web 3 prerequisites for this tutorial, but you should have some experience with [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). Ideally you have heard about [Solana](https://solana.com/), and know that it's a public blockchain protocol capable of running smart contracts with significant scalability advantages.
 
 Having said that, feel free to give it a shot even if you don't meet the above prerequisites since you'll likely get a lot out of it anyway. Just be extra patient because it may be a bit more difficult to navigate the pre-built app and the Solana functionality we'll be developing.
 
