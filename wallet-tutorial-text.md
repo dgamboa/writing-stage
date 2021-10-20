@@ -20,7 +20,7 @@ You'll be building Solana interactions on top of a [Next.js](https://nextjs.org/
 
 First, clone [the repo](https://github.com/figment-networks/wallet-tutorial) in your system and install the app dependencies by running the following three commands in your terminal:
 
-*Listing 1.1: Set up commands to run on your terminal*
+##### *Listing 1.1: Set up commands to run on your terminal*
 
 ```
 $ git clone https://github.com/figment-networks/wallet-tutorial.git
