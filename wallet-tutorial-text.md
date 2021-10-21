@@ -75,7 +75,7 @@ Crypto wallets are the most critical piece of user-facing infrastructure in the 
 
 A wallet is less like the wallet you use for your credit cards, and a lot more like a key chain. If you think of a blockchain as a giant safe with digital safety deposit boxes, wallets are the key chains where you keep the keys to your box. Once you have access to a box, you can manage the contents of it by receiving, sending, and spending digital assets.
 
-We can think of the box itself as a chunk of memory on the blockchain. The digital box location is referred to as a public key, or more intuitively a public address, and can be shared with anyone in the same way you might share your address to receive mail at home. As the name implies, this is widely available to others on the network and it is the identifier others use to send digital assets to someone's box.
+We can think of the box itself as a chunk of memory on the blockchain. The digital box location is referred to as a public key, or more intuitively a public address and can be shared with anyone in the same way you might share your address to receive mail at home. As the name implies, this is widely available to others on the network and it is the identifier others use to send digital assets to someone's box.
 
 The key that can unlock the safety deposit box is referred to as a private key. Anyone with access to a box's private key has access to the box, which is why it's important for users to keep the key private - hence the name, private key.
 
