@@ -20,7 +20,7 @@ You'll be building Solana interactions on top of a [Next.js](https://nextjs.org/
 
 First, clone [the repo](https://github.com/figment-networks/wallet-tutorial) in your system and install the app dependencies by running the following three commands in your terminal:
 
-##### *Listing 1.1: Set up commands to run on your terminal*
+##### _Listing 1.1: Set up commands to run on your terminal_
 
 ```
 $ git clone https://github.com/figment-networks/wallet-tutorial.git
@@ -30,7 +30,7 @@ $ yarn
 
 Then, run `yarn dev` in your terminal to start the development server on port 3000. The terminal should print output similar to that in [Listing 1.2](#listing-12-terminal-message-on-app-start-up) informing you that the app is available to be viewed at [http://localhost:3000](http://localhost:3000).
 
-##### *Listing 1.2: Terminal message on app start up*
+##### _Listing 1.2: Terminal message on app start up_
 
 ```
 yarn run v1.22.11
@@ -58,7 +58,6 @@ Then we'll build a function to fetch the balance of our newly created wallet in 
 
 ![](./public/airdrop.png)
 
-
 Having added funds to our wallet, we'll build the ability to transfer funds to another wallet in [Step 5](#step-5-transferring-funds).
 
 ![](./public/transfer.png)
@@ -75,7 +74,7 @@ Crypto wallets are the most critical piece of user-facing infrastructure in the 
 
 A wallet is less like the wallet you use for your credit cards, and a lot more like a keychain. If you think of a blockchain as a giant safe with digital safety deposit boxes, wallets are the keychains where you keep the keys to your box. Once you have access to a box, you can manage the contents of it by receiving, sending, holding and spending digital assets.
 
->Consider Picture: safety deposit boxes in a safe.
+> Consider Picture: safety deposit boxes in a safe.
 
 We can think of the box itself as a chunk of memory on the blockchain. The digital box location is referred to as a public key, or more intuitively as a public address, and can be shared with anyone in the same way you might share your address to receive mail at home. As the name implies, this is widely available to others on the network and it is the identifier others use to send digital assets to someone's box.
 
@@ -83,7 +82,7 @@ The key that can unlock the safety deposit box is referred to as the private key
 
 In this tutorial, we'll be building a type of wallet called a Hierarchical Deterministic (HD) wallet. We don't need to dive into the full definition of HD wallets here, but it's important to know that they enable the ability to store the private key as a 12-, 18-, or 24-word phrase referred to as a secret recovery phrase or mnemonic phrase. You'll be using a JavaScript library called [Bip39](https://github.com/bitcoinjs/bip39) to facilitate the generation of this phrase, which in turn can be converted into a private key to create a wallet.
 
->Consider Aside: why phrases are also called mnemonics
+> Consider Aside: why phrases are also called mnemonics
 
 ### Challenge
 
@@ -91,7 +90,7 @@ If you haven't already, run and open the app in your browser at [http://localhos
 
 For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when the `/phrase` page renders. In your editor, navigate to `pages/phrase.tsx` and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 2.1](#listing-21-instructions-for-generating-a-phrase-and-creating-a-wallet) below.
 
-##### *Listing 2.1: Instructions for generating a phrase and creating a wallet*
+##### _Listing 2.1: Instructions for generating a phrase and creating a wallet_
 
 ```javascript
 useEffect(() => {
@@ -104,12 +103,14 @@ useEffect(() => {
   // This line saves the mnemonic phrase to context state so we can display it for the wallet user to copy
   setMnemonic(generatedMnemonic);
 
-  // (c) convert the mnemonic to seed bytes
+  // (c) convert the mnemonic to seed bytes and make sure it's 32-bytes (Hint: console log the seed to see how many bytes you have vs how many you need)
   // Documentation Reference: https://github.com/bitcoinjs/bip39
   const seed = new Uint8Array();
 
   // (d) use the seed to generate a new account (i.e. a new keypair)
-  // Documentation Reference: https://solana-labs.github.io/solana-web3.js/
+  // Documentation Reference:
+  //   https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
+  //   https://solana-labs.github.io/solana-web3.js/classes/Keypair.html#fromSeed
   const newAccount = null;
 
   // This line sets the account to context state so it can be used by the app
@@ -123,7 +124,6 @@ In order to generate the phrase, we need to leverage an external library that sa
 
 We already installed the library when we ran `yarn` during set up because we included it into the pre-built app's [package.json](https://github.com/figment-networks/wallet-tutorial/blob/main/package.json). So all we need to do is import it:
 
-
 ```javascript
 import * as Bip39 from "bip39";
 ```
@@ -136,13 +136,13 @@ const generatedMnemonic = Bip39.generateMnemonic();
 
 This allows us to set the phrase in state and display it for our wallet user to store safely. With this step we have effectively created our wallet or account because the phrase by itself will allow its holder to access the account that matches it.
 
->Consider Aside: In fact, you could say that blockchain accounts aren't created. Because these accounts are mathematical addresses in a system where the existence of accounts is established mathematically by its architecture, it's more accurate to think of the mnemonic as obtaining the key to access a pre-existing, empty account.
+> Consider Aside: In fact, you could say that blockchain accounts aren't created. Because these accounts are mathematical addresses in a system where the existence of accounts is established mathematically by its architecture, it's more accurate to think of the mnemonic as obtaining the key to access a pre-existing, empty account.
 
 Before we can connect to the account on the blockchain, however, we need to convert the phrase into a form that the blockchain can understand. After all, mnemonic phrases are abstractions that translate a long, archaic number into a more human-friendly form.
 
 We need to convert the phrase into bytes so the Solana web3.js library can use it to generate a `keypair` object. The `keypair` will be the wallet account consisting of a public key that can encrypt data and a private key that can decrypt data.
 
->Consider Aside: brief overview of keypairs / public-key cryptography
+> Consider Aside: brief overview of keypairs / public-key cryptography
 
 By reviewing Solana's web3.js documentation, we see that there's a `Keypair` class defined as "an account keypair used for signing transactions." This is exactly what we need to generate using the mnemonic phrase.
 
@@ -176,11 +176,11 @@ const newAccount = Keypair.fromSeed(seed);
 
 We then set the account into the context state manager and we have access to a Solana wallet. Before you click **Finish**, save the recovery phrase as we'll be using it in [Step 6](#step-6-recovering-an-account) to access it once we've logged out. Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard.
 
->Consider Image: wallet dashboard
+> Consider Image: wallet dashboard
 
 You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3](#step-3-fetching-a-balance) while implementing the crucial functionality of showing users their balance. In [Step 4](#step-4-airdropping-funds) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](#step-5-transferring-funds) we'll enable the **Send** button and transfer funds.
 
-##### *Listing 2.2: Code for creating a wallet*
+##### _Listing 2.2: Code for creating a wallet_
 
 ```javascript
 const generatedMnemonic = Bip39.generateMnemonic();
@@ -211,31 +211,33 @@ In the last step, we discussed how a wallet is more like a keychain that holds k
 
 If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1](#listing-31-instructions-for-fetching-an-accounts-balance) below.
 
-##### *Listing 3.1: Instructions for fetching an account's balance*
+##### _Listing 3.1: Instructions for fetching an account's balance_
 
 ```javascript
 // *Step 3*: implement a function that gets an account's balance
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
+  // This line ensures the function returns before running if no account has been set
   if (!account) return 0;
 
   try {
     // (a) review the import guidance on line 1
-    // (b) instantiate a connection using clusterApiUrl with the active network
+    // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
     // Documentation References:
     //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
     //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
-    console.log("Balance functionality not implemented yet!")
+    console.log("Balance functionality not implemented yet!");
     const connection = "";
 
-    // (c) get the key using one of the accessors for active account
+    // (c) get the key using one of the accessors on the account passed in as an argument
     // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
     const publicKey = "";
 
     // (d) get the account's balance using the connection instance
     // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    const balance = 0
+    const balance = 0;
 
-    return balance
+    return balance;
+    // (e) You can now delete the console.log statement since the function is implemented!
   } catch (error) {
     console.log(error);
     return 0;
@@ -251,7 +253,7 @@ The description for `endpoint` mentions that it's a "URL to the fullnode JSON RP
 
 As for `commitmentOrConfig`, it looks like the definition for `Commitment` types describes it as the "level of commitment desired when querying state", which is a meaningless definition to us at this point. However, it looks like `Commitment` can be one of several strings so we should choose one and test the function. In this case, we can choose "confirmed" as a reasonable guess and move forward.
 
->Consider Aside: [technical sophistication](https://www.securemac.com/news/the-securemac-interview-michael-hartl-on-technical-sophistication) and give shout out to Hartl
+> Consider Aside: [technical sophistication](https://www.securemac.com/news/the-securemac-interview-michael-hartl-on-technical-sophistication) and give shout out to Hartl
 
 Putting the above together, we can build our connection instance:
 
@@ -273,7 +275,7 @@ const balance = await connection.getBalance(publicKey);
 console.log(balance);
 
 // console:
-0
+> 0;
 ```
 
 There are a few ways to structure this part of the function. We've chosen to assign the `publicKey` variable to the account's public key, and then pass that into `getBalance` to query the network for the balance.
@@ -282,7 +284,7 @@ From the docs, we know `getBalance` returns a promise so we use `await` and assi
 
 But that's a bit anticlimactic. We know it's a new account and it should have zero balance. Nothing changed on the frontend because the default value was zero. We need to fund the account to see the balance change, and we'll do just that in the next step.
 
-##### *Listing 3.2: Code for fetching a balance*
+##### _Listing 3.2: Code for fetching a balance_
 
 ```javascript
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
@@ -306,7 +308,7 @@ We've now generated a wallet and connected it to the Solana blockchain. In the p
 
 In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
 
->Consider Aside: famous project airdrops and how it "pays" to be an early adopter in crypto
+> Consider Aside: famous project airdrops and how it "pays" to be an early adopter in crypto
 
 On the right of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
 
@@ -316,40 +318,40 @@ Once we've completed this step, our balance will automatically increase when we 
 
 If you open the browser's console from the `/wallet` page, and click on the **Airdrop** button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1](#listing-41-instructions-for-writing-airdrop-function) below.
 
-##### *Listing 4.1: Instructions for writing airdrop function*
+##### _Listing 4.1: Instructions for writing airdrop function_
 
 ```javascript
-// *Step 4*: implement a function that airdrops SOL into devnet account
 const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
   // This line ensures the function returns before running if no account has been set
   if (!account) return;
 
   try {
     // (a) review the import guidance on line 1
-    // (b) instantiate a connection using clusterApiUrl with the active network
+    // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
     // Documentation References:
     //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
     //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
-    console.log("Airdrop functionality not implemented yet!")
+    console.log("Airdrop functionality not implemented yet!");
     const connection = "";
 
-    // (c) get the key using one of the accessors for active account
+    // (c) get the key using one of the accessors on the account passed in as an argument
     // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
     const publicKey = "";
 
     // (d) request the airdrop using the connection instance
     // Note that you should include the amount to airdrop (consider using the LAMPORTS_PER_SOL constant from the web3.js library)
     // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    const confirmation = ""
+    const confirmation = "";
 
     // (d) confirm the transaction using the connection instance and the confirmation string returned from the airdrop
     // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    const result = ""
+    const result = "";
 
-    // (e) Refactor the refreshBalance function to return balances in SOL instead of Lamports
+    // (e) Refactor the refreshBalance function to return balances in SOL instead of Lamports (Hint: LAMPORTS_PER_SOL)
 
     // This line returns the balance after the airdrop so the UI can be refreshed
     return await refreshBalance(network, account);
+    // (f) You can now delete the console.log statement since the function is implemented!
   } catch (error) {
     console.log(error);
     return;
@@ -368,8 +370,8 @@ const publicKey = account.publicKey;
 
 Following our previous heuristic of searching the docs for keywords, we can now search for "airdrop" to see if perhaps there's a function we can leverage. Lo an behold the `Connection` class has a `requestAirdrop` function that looks promising. It takes in `to: PublicKey` and `lamports: number`, and returns a `promise` that resolves to a string. You might be wondering what a "lamport" is. Solana's native token, SOL, is divisible into 1 billion lamports. You can think of lamports as the cents to SOL's dollar.
 
->Consider Aside: Leslie Lamport
->Consider Picture: Leslie Lamport
+> Consider Aside: Leslie Lamport
+> Consider Picture: Leslie Lamport
 
 It's not clear from the documentation, but after a little research you can confirm that the returned string represents a confirmation ID or `signature`. From a function design standpoint, it seems reasonable that to request an airdrop we should pass in the account address (public key) and the amount of funds we're requesting.
 
@@ -391,7 +393,7 @@ const confirmation = await connection.requestAirdrop(
 
 Finally, before we can refresh our account's balance automatically, we need a way to make sure the blockchain ledger has been updated with our airdropped funds before we call `refreshBalance`. As with any database-type operations, blockchain state changes are asynchronous. In fact, given the decentralized nature of most blockchain protocols, some updates [can take a while](https://twitter.com/CryptoKitties/status/937444644740198400?s=20).
 
->Consider Picture: CryptoKitties
+> Consider Picture: CryptoKitties
 
 With that in mind, we need to wait for the airdrop to be confirmed before refreshing the balance. Searching the docs once again, we can see that our Connection class includes a confirmTransaction method that takes in a confirmation `signature` and `commitment`, and returns a `promise` that resolves once the transaction is confirmed by the network.
 
@@ -413,9 +415,9 @@ return balance / LAMPORTS_PER_SOL;
 
 We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](#step-5-transferring-funds), so buckle up.
 
->Consider Picture: buckle up reference
+> Consider Picture: buckle up reference
 
-##### *Listing 4.2: Code for airdropping funds*
+##### _Listing 4.2: Code for airdropping funds_
 
 ```javascript
 const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
@@ -476,7 +478,7 @@ If you click on the **Send** button on the wallet dashboard, a drawer component 
 
 Navigate to `components/TransactionLayout/index.tsx` in your editor and follow the steps included as comments to finish writing the `transfer` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 5.1](#listing-51-instructions-for-writing-transfer-function) below.
 
-##### *Listing 5.1: Instructions for writing transfer function*
+##### _Listing 5.1: Instructions for writing transfer function_
 
 ```javascript
 // *Step 5*: implement a function that transfer funds
@@ -486,7 +488,7 @@ const transfer = async () => {
 
   try {
     // (a) review the import guidance on line 1
-    // (b) instantiate a connection using clusterApiUrl with the active network
+    // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
     // Documentation References:
     //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
     //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
@@ -521,11 +523,10 @@ const transfer = async () => {
     const updatedBalance = await refreshBalance(network, account);
     setBalance(updatedBalance);
     message.success(`Transaction confirmed`);
+    // (g) You can now delete the console.log statement since the function is implemented!
   } catch (error) {
     console.log(error);
-    message.error(
-      "Transaction failed, please check your inputs and try again"
-    );
+    message.error("Transaction failed, please check your inputs and try again");
   }
 };
 ```
@@ -624,7 +625,7 @@ You might notice a field labeled "Fee (SOL)". If you scroll to the Account Input
 
 At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](#step-6-recovering-an-account) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
 
-##### *Listing 5.2: Code for transferring funds*
+##### _Listing 5.2: Code for transferring funds_
 
 ```javascript
 const transfer = async () => {
@@ -677,7 +678,7 @@ The beauty of public-key cryptography is that the private key is effectively you
 
 Recall that we've built a type of wallet called a Hierarchical Deterministic (HD) wallet, which means we can map our 12-word phrase to a seed. Since the keypair that makes the account is derived from this seed, as long as we have the recovery phrase, we can get access to the keypair and therefore the account.
 
->Consider Aside: in the context of an industrial-strength wallet, you'll be using the phrase as a recovery mechanism and will leverage other simpler methods for day-to-day access but the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds
+> Consider Aside: in the context of an industrial-strength wallet, you'll be using the phrase as a recovery mechanism and will leverage other simpler methods for day-to-day access but the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds
 
 If you saved your test account's recovery phrase, we'll use it now. Feel free to click log out at the top right. Once we've finished this step, you'll once again have access to your devnet SOL.
 
@@ -687,11 +688,13 @@ Navigate to the app's home page at [http://localhost:3000](http://localhost:3000
 
 For this feature to work, we need to implement a function that uses the phrase to generate a seed, and then uses the seed to retrieve the keypair (i.e. access the account). Navigate to `pages/recover.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 6.1](#listing-61-instructions-for-writing-recover-function) below.
 
-##### *Listing 6.1: Instructions for writing recover function*
+##### _Listing 6.1: Instructions for writing recover function_
 
 ```javascript
-// *Step 6*: implement a function that recovers an account based on mnemonic
+// *Step 6*: implement a function that recovers an account based on a mnemonic phrase
 const handleImport = async (values: any) => {
+  console.log("Recovery functionality not implemented yet!");
+
   setLoading(true);
   const inputMnemonic = values.phrase.trim().toLowerCase();
   setMnemonic(inputMnemonic);
@@ -707,6 +710,8 @@ const handleImport = async (values: any) => {
   //   https://solana-labs.github.io/solana-web3.js/classes/Keypair.html#fromSeed
   const importedAccount = null;
   setAccount(importedAccount);
+
+  // (d) You can now delete the console.log statement since the function is implemented!
 };
 ```
 
@@ -723,7 +728,7 @@ const importedAccount = Keypair.fromSeed(seed);
 
 With those two lines of code, we have effectively implemented authentication and allowed users to access their accounts from any device as long as they have their recovery phrase.
 
-##### *Listing 6.2: Code for Recovering an Account*
+##### _Listing 6.2: Code for Recovering an Account_
 
 ```javascript
 const handleImport = async (values: any) => {
@@ -745,7 +750,7 @@ By writing a function to generate a mnemonic phrase and using it to create a key
 
 In the process of building the wallet, you also learned some of the fundamentals of developing for Web 3. You learned how the frontend part of the stack is practically identical to what you're already used to. You also learned that interacting with blockchain protocols means leveraging API libraries that help you create, read and update data in a familiar way. Importantly, you learned just enough about public-key cryptography, crypto wallets, and blockchain concepts like airdrops, keypairs, and mnemonics to unlock a whole world of learning paths to explore next.
 
-Web 3 holds a world of promise for the future of the internet. More importantly, there are vasts areas of greenspace for developers to build amazing things and a ton of low hanging fruit problems to solve. 
+Web 3 holds a world of promise for the future of the internet. More importantly, there are vasts areas of greenspace for developers to build amazing things and a ton of low hanging fruit problems to solve.
 
 If you want to connect with an amazing community of developers, join us on [Discord](https://discord.gg/fszyM7K). The opportunities are endless and we wish you well on your journey!
 
