@@ -8,6 +8,11 @@ There are no formal blockchain or Web 3 prerequisites for this tutorial, but you
 
 Having said that, feel free to give it a shot even if you don't meet the above prerequisites since you'll likely get a lot out of it anyway. Just be extra patient because it may be a bit more difficult to navigate the pre-built app and the Solana functionality we'll be developing.
 
+> You take the red pill—you stay in Wonderland, and I show you how deep the rabbit hole goes.
+
+![](./public/cat.jpeg)
+<p style="font-size:12px;text-align:center;font-style:italic">Figure 1: Always important to have a good guide when exploring unfamiliar territory</p>
+
 ## Step 1: Up and Running
 
 ### System Dependencies
@@ -308,11 +313,15 @@ We've now generated a wallet and connected it to the Solana blockchain. In the p
 
 In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
 
-> Consider Aside: famous project airdrops and how it "pays" to be an early adopter in crypto
+![](./public/airdrop.jpeg)
+<p style="font-size:12px;text-align:center;font-style:italic">Figure [x]: We're about reinforce our supply lines with some devnet SOL</p>
 
-On the right of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
+On the right side of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
 
 Once we've completed this step, our balance will automatically increase when we click **Airdrop**. This will position us well for [Step 5](#step-5-transferring-funds) where we'll build functionality to send funds to other Solana accounts.
+
+
+> Consider Aside: famous project airdrops and how it "pays" to be an early adopter in crypto
 
 ### Challenge
 
