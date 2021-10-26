@@ -8,7 +8,9 @@ There are no formal blockchain or Web 3 prerequisites for this tutorial, but you
 
 Having said that, feel free to give it a shot even if you don't meet the above prerequisites since you'll likely get a lot out of it anyway. Just be extra patient because it may be a bit more difficult to navigate.
 
-We think of ourselves as your guide - for a brief amount of time - on your journey to build a better internet. We hope you walk away with a better understanding of Web 3 technologies and perhaps even a bit more confidence to tackle significant problems. We've tried to show you the door (or maybe part of it). Your job is to discover your path and walk it courageously.
+We think of ourselves as your guide - for a brief amount of time - on your journey to build a better internet. We hope you walk away with a better understanding of Web 3 technologies and perhaps even a bit more confidence to tackle significant problems.
+
+We've tried to show you the door (or maybe part of it). Your job is to discover your path and walk it courageously.
 
 > You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes.
 
@@ -51,9 +53,9 @@ event - compiled successfully
 
 The tutorial is structured as a set of steps that break down the process of developing the wallet functionality for the pre-built Next.js app. Each step discusses key concepts and mental models that create the necessary context for you to better understand what we're building and why. Think of this as the warm up.
 
-The discussion is followed by a challenge that aims to give you just enough instructions and references to allow you to implement the functionality on your own if you want to take a shot at it. This allows you to exercise [active recall](https://en.wikipedia.org/wiki/Active_recall) and increases your mind's ability to make connections.
+After the warm up, we provide a step-by-step implementation of the functionality including a code snippet of the full solution. After building context with the warm up, this serves as a way for us to guide you through the logic of the implementation and helps scaffold your mental model for the topic.
 
-After the challenge, we provide a step-by-step discussion of building the functionality including a code snippet of the full solution. After building context with the warm up and scaffolding your mental model with the challenge, this serves as a way for us to guide you through the logic of the implementation and helps solidify what you learned.
+The implementation is followed by a challenge that aims to give you just enough instructions and references to allow you to implement the functionality on your own if you want to take a shot at it. This allows you to exercise [active recall](https://en.wikipedia.org/wiki/Active_recall) and increases your mind's ability to make connections.
 
 ### Wallet Preview
 
