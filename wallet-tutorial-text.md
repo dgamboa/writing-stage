@@ -1,14 +1,16 @@
 # Wallet Tutorial
 
-In this tutorial, you'll learn to develop a wallet for the [Solana](https://solana.com/) protocol. As you build, we'll dive into some of the fundamentals of Web 3 so you can start cultivating an understanding for blockchain technology and decentralized applications (dApps).
+You're about to learn how to develop a wallet for the [Solana](https://solana.com/) protocol. As you build, we'll dive into some of the fundamentals of Web 3 so you can start cultivating an understanding for blockchain technology and decentralized applications (dApps).
 
 ### Prerequisites
 
 There are no formal blockchain or Web 3 prerequisites for this tutorial, but you should have some experience with [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). Ideally you have heard about [Solana](https://solana.com/), and know that it's a public blockchain protocol capable of running smart contracts with significant scalability advantages.
 
-Having said that, feel free to give it a shot even if you don't meet the above prerequisites since you'll likely get a lot out of it anyway. Just be extra patient because it may be a bit more difficult to navigate the pre-built app and the Solana functionality we'll be developing.
+Having said that, feel free to give it a shot even if you don't meet the above prerequisites since you'll likely get a lot out of it anyway. Just be extra patient because it may be a bit more difficult to navigate.
 
-> You take the red pill—you stay in Wonderland, and I show you how deep the rabbit hole goes.
+We think of ourselves as your guide - for a brief amount of time - on your journey to build a better internet. We hope you walk away with a better understanding of Web 3 technologies and perhaps even a bit more confidence to tackle significant problems. We've tried to show you the door (or maybe part of it). Your job is to discover your path and walk it courageously.
+
+> You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes.
 
 ![](./public/cat.jpeg)
 <p style="font-size:12px;text-align:center;font-style:italic">Figure 1: Always important to have a good guide when exploring unfamiliar territory</p>
