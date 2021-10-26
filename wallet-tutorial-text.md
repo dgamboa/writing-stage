@@ -250,7 +250,7 @@ useEffect(() => {
 
 ## Step 3: Fetching a Balance
 
-Crypto wallets serve one key function. By storing your private keys, they allow you to manage - transfer, receive, organize - your digital assets. Part of that function requires the wallet to retrieve certain data that is stored on the blockchain to display on your user dashboard.
+Crypto wallets serve one key function. By storing your private keys, they allow you to manage - transfer, receive, organize - your digital assets. Part of that function requires the wallet to retrieve certain data that is stored onchain to display on your user dashboard.
 
 A balance represents a certain amount of cryptocurrency or tokens held by an account. If you think of the blockchain as a database that keeps ownership records, and of the public keys as the owner IDs, then you can think of the balances as an integer column in the database that tracks how much of a certain token each owner holds.
 
@@ -258,49 +258,12 @@ We'll be connecting to one of Solana's networks, and fetching the balance for th
 
 The concept of various networks for a single protocol is similar to that of different environments for an app (e.g. development, test, production, etc). Typically blockchain protocols have a main network or mainnet, which refers to the production blockchain with real economic value and official transactions, and at least one experimentation network, which refers to an identical blockchain used to test features before they go live on mainnet.
 
-Solana has a production network called mainnet and two exploration networks called testnet and devnet. Solana's devnet is designed for developers and users to play with various features and debug dApps before launching on mainnet with real economic consequences. The testnet is where the Solana protocol tests new releases and potential protocol updates.
+![](./public/consultant.jpeg)
+<p align="center"><i><b>Figure 4:</b> It's always important to test on devnet before deploying on mainnet</i></p>
+
+Solana has a production network called mainnet and two exploration networks called testnet and devnet. Solana's devnet is designed for developers and users to play with various features and debug dApps before launching on mainnet with real economic consequences. The testnet is where Solana tests potential protocol updates.
 
 You'll notice the wallet includes a dropdown at the top-right that allows users to select what network they want to connect to. This allows the wallet to manage assets specific to the connected network. Our default network is devnet since we'll be using it to receive test tokens in [Step 4](#step-4-airdropping-funds) and then transfer them in [Step 5](#step-5-transferring-funds), but the functionality we'll build will work for any of the Solana networks.
-
-### Challenge
-
-In the last step, we discussed how a wallet is more like a keychain that holds keypairs representing an account address and the key to access it. We built a function that allowed us to generate a unique account and the corresponding phrase that works like a password for accessing the account. Now we need to connect with the Solana blockchain so we can fetch the account's balance, which at this point should be zero since we just created it.
-
-If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1](#listing-31-instructions-for-fetching-an-accounts-balance) below.
-
-##### _Listing 3.1: Instructions for fetching an account's balance_
-
-```javascript
-// *Step 3*: implement a function that gets an account's balance
-const refreshBalance = async (network: Cluster, account: Keypair | null) => {
-  // This line ensures the function returns before running if no account has been set
-  if (!account) return 0;
-
-  try {
-    // (a) review the import guidance on line 1
-    // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
-    // Documentation References:
-    //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
-    console.log("Balance functionality not implemented yet!");
-    const connection = "";
-
-    // (c) get the key using one of the accessors on the account passed in as an argument
-    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
-    const publicKey = "";
-
-    // (d) get the account's balance using the connection instance
-    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    const balance = 0;
-
-    return balance;
-    // (e) You can now delete the console.log statement since the function is implemented!
-  } catch (error) {
-    console.log(error);
-    return 0;
-  }
-};
-```
 
 ### Implementation
 
@@ -352,6 +315,46 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
     const publicKey = account.publicKey;
     const balance = await connection.getBalance(publicKey);
     return balance;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+};
+```
+
+### Challenge
+
+In the last step, we discussed how a wallet is more like a keychain that holds keypairs representing an account address and the key to access it. We built a function that allowed us to generate a unique account and the corresponding phrase that works like a password for accessing the account. Now we need to connect with the Solana blockchain so we can fetch the account's balance, which at this point should be zero since we just created it.
+
+If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1](#listing-31-instructions-for-fetching-an-accounts-balance) below.
+
+##### _Listing 3.1: Instructions for fetching an account's balance_
+
+```javascript
+// *Step 3*: implement a function that gets an account's balance
+const refreshBalance = async (network: Cluster, account: Keypair | null) => {
+  // This line ensures the function returns before running if no account has been set
+  if (!account) return 0;
+
+  try {
+    // (a) review the import guidance on line 1
+    // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
+    // Documentation References:
+    //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
+    console.log("Balance functionality not implemented yet!");
+    const connection = "";
+
+    // (c) get the key using one of the accessors on the account passed in as an argument
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
+    const publicKey = "";
+
+    // (d) get the account's balance using the connection instance
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    const balance = 0;
+
+    return balance;
+    // (e) You can now delete the console.log statement since the function is implemented!
   } catch (error) {
     console.log(error);
     return 0;
