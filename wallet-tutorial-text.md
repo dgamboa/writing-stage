@@ -267,13 +267,25 @@ You'll notice the wallet includes a dropdown at the top-right that allows users 
 
 ### Implementation
 
+In the [Step 2](#step-2-creating-a-wallet), we discussed how a wallet is more like a keychain that holds keypairs representing an account address and the key to access it. We built a function that allowed us to generate a unique account and the corresponding phrase that works like a password for accessing the account. Now we need to connect with the Solana blockchain so we can fetch the account's balance, which at this point should be zero because we just created it.
+
 The first step for interacting with any blockchain is to instantiate a connection. Conveniently there's a `Connection` class in web3.js designed to do just that. By reviewing the documentation, we notice the `Connection` constructor requires two arguments: `endpoint: string` and `commitmentOrConfig?: Commitment | ConnectionConfig`.
 
 The description for `endpoint` mentions that it's a "URL to the fullnode JSON RPC endpoint". Since we don't have a URL for the connection, we need to either find one from Solana or look for a function that will return a URL. By searching the web3.js docs for "URL", we see that there's a function called `clusterApiUrl` that returns the "RPC API URL for the specified cluster". Moreover, if we review the `Cluster` type, we see that it refers to the network we want to connect to.
 
 As for `commitmentOrConfig`, it looks like the definition for `Commitment` types describes it as the "level of commitment desired when querying state", which is a meaningless definition to us at this point. However, it looks like `Commitment` can be one of several strings so we should choose one and test the function. In this case, we can choose "confirmed" as a reasonable guess and move forward.
 
-> Consider Aside: [technical sophistication](https://www.securemac.com/news/the-securemac-interview-michael-hartl-on-technical-sophistication) and give shout out to Hartl
+---
+
+<details>
+  <summary><b>Box 3.1: A Note on Technical Sophistication</b></summary>
+
+  In his ground-breaking series on software development, Michael Hartl and the [Learn Enough](https://www.learnenough.com/) team introduced the concept of _technical sophistication_ as a key attribute of the technical development process. They define it as "the combination of hard and soft skills that make it seem like you can magically solve any technical problem."
+
+  Figuring things out and being resourceful is at least half the battle, and sometimes the whole war. When in doubt, refer to the [xkcd flowchart](https://m.xkcd.com/627/).
+</details>
+
+---
 
 Putting the above together, we can build our connection instance:
 
@@ -323,8 +335,6 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
 ```
 
 ### Challenge
-
-In the last step, we discussed how a wallet is more like a keychain that holds keypairs representing an account address and the key to access it. We built a function that allowed us to generate a unique account and the corresponding phrase that works like a password for accessing the account. Now we need to connect with the Solana blockchain so we can fetch the account's balance, which at this point should be zero since we just created it.
 
 If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1](#listing-31-instructions-for-fetching-an-accounts-balance) below.
 
