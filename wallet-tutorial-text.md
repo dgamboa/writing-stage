@@ -109,7 +109,13 @@ In this tutorial, we'll be building a type of wallet called a Hierarchical Deter
 
 ---
 
+Run and open the app in your browser at [http://localhost:3000](http://localhost:3000). You'll notice the frontend offers the user the option to create a new wallet or import an existing wallet.
+
+Clicking on **Create New Wallet** routes the user to a `/generate` page signaling to our user that by clicking **Generate**, the app will generate a key phrase and thus create a new wallet. But when we click **Generate**, we're routed to a `/phrase` page with an empty phrase container.
+
 ### Implementation
+
+For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when the `/phrase` page renders. In your editor, navigate to `pages/phrase.tsx`.
 
 In order to generate the phrase, we need to leverage an external library that satisfies the [BIP39 specification](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), which set the standard for generating phrases for deterministic keys. 
 
@@ -127,17 +133,39 @@ Recall that secret recovery phrases are also called mnemonics and Bip39 includes
 const generatedMnemonic = Bip39.generateMnemonic();
 ```
 
-This allows us to set the phrase in state and display it for our wallet user to store safely. With this step we have effectively created our wallet or account because the phrase by itself will allow its holder to access the account that matches it.
+This allows us to set the phrase in state and display it for our user to write down and store safely. With this step we have effectively created our wallet because the phrase by itself will allow its holder to access the account that matches it.
 
-> Consider Aside: In fact, you could say that blockchain accounts aren't created. Because these accounts are mathematical addresses in a system where the existence of accounts is established mathematically by its architecture, it's more accurate to think of the mnemonic as obtaining the key to access a pre-existing, empty account.
+---
+
+<details>
+  <summary><b>Box 2.2: The conservation of blockchain accounts</b></summary>
+
+  Even though most of the community refers to accounts as being created, technically blockchain accounts can't be created or destroyed.
+
+  These accounts are mathematical addresses in a system where their existence is established mathematically at inception by the system's architecture. It's more accurate to think of the mnemonic as obtaining the key to access a pre-existing, empty account.
+</details>
+
+---
 
 Before we can connect to the account on the blockchain, however, we need to convert the phrase into a form that the blockchain can understand. After all, mnemonic phrases are abstractions that translate a long, archaic number into a more human-friendly form.
 
 We need to convert the phrase into bytes so the Solana web3.js library can use it to generate a `keypair` object. The `keypair` will be the wallet account consisting of a public key that can encrypt data and a private key that can decrypt data.
 
-> Consider Aside: brief overview of keypairs / public-key cryptography
+---
 
-By reviewing Solana's web3.js documentation, we see that there's a `Keypair` class defined as "an account keypair used for signing transactions." This is exactly what we need to generate using the mnemonic phrase.
+<details>
+  <summary><b>Box 2.3: Public-key cryptography</b></summary>
+
+  At a high-level public-key cryptography is a cryptographic system that uses keypairs to transmit information securely. Each keypair consists of a public key, which is widely known across the system, and a private key, which should be kept secret by its owner.
+
+  Suppose Bob wants to send a secure message to Alice while ensuring that, even if Eve intercepts it, she can't read it. Bob would encrypt the message using Alice's public key and then send the message. Because of something called a one-way function, the public key cannot be used to decrypt the message. The only way the message can be decrypted is with the private key that complements the public key used by Bob - that is, the private key that Alice holds. Bob can rest assured that no one but Alice will be able to read the message.
+
+  The ability to encrypt information without the need to pre-share symmetric keys was a massive technological development. And the history behind these breakthroughs is well worth studying if you're so inclined. We've included a few suggestions as [additional resources](#additional-resources).
+</details>
+
+---
+
+By reviewing Solana's web3.js [documentation](https://solana-labs.github.io/solana-web3.js/index.html), we see that there's a `Keypair` class defined as "an account keypair used for signing transactions." This is exactly what we need to generate using the mnemonic phrase.
 
 We notice that the `Keypair` class has a `fromSeed` method that generates a keypair from a 32-byte seed. It also mentions that the seed needs to be a `Uint8Array`, which means we'll need a way to convert our `string` phrase into a `Uint8Array`.
 
@@ -161,17 +189,19 @@ console.log(seed)
 > Uint8Array(32);
 ```
 
-With the seed in that format, we can use `Keypair`'s `fromSeed` method to generate an account keypair:
+With the seed in the right format, we can use `Keypair`'s `fromSeed` method to generate an account keypair:
 
 ```javascript
 const newAccount = Keypair.fromSeed(seed);
 ```
 
-We then set the account into the context state manager and we have access to a Solana wallet. Before you click **Finish**, save the recovery phrase as we'll be using it in [Step 6](#step-6-recovering-an-account) to access it once we've logged out. Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard.
+We then set the account into context state and we have access to a Solana wallet.
 
-> Consider Image: wallet dashboard
+Once you implement the functionality, make sure you save the recovery phrase before you click **Finish** on the browser. We'll be using it in [Step 6](#step-6-recovering-an-account) to access the wallet once after logging out. 
 
-You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3](#step-3-fetching-a-balance) while implementing the crucial functionality of showing users their balance. In [Step 4](#step-4-airdropping-funds) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](#step-5-transferring-funds) we'll enable the **Send** button and transfer funds.
+Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard. You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3](#step-3-fetching-a-balance) while implementing the crucial functionality of showing users their balance.
+
+In [Step 4](#step-4-airdropping-funds) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](#step-5-transferring-funds) we'll enable the **Send** button and transfer funds.
 
 ##### _Listing 2.2: Code for creating a wallet_
 
@@ -184,11 +214,11 @@ const newAccount = Keypair.fromSeed(seed);
 setAccount(newAccount);
 ```
 
+![](./public/dashboard.png)
+
 ### Challenge
 
-If you haven't already, run and open the app in your browser at [http://localhost:3000](http://localhost:3000). You'll notice the frontend offers the user the option to create a new wallet or import an existing wallet. Clicking on **Create New Wallet** routes the user to a `/generate` page signaling to our user that by clicking **Generate**, the app will generate a key phrase and thus create a new wallet. But when we click **Generate**, we're routed to a `/phrase` page with an empty phrase container.
-
-For the app to work, we need to implement a function that generates a phrase and uses it to create a wallet when the `/phrase` page renders. In your editor, navigate to `pages/phrase.tsx` and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 2.1](#listing-21-instructions-for-generating-a-phrase-and-creating-a-wallet) below.
+In your editor, navigate to `pages/phrase.tsx` and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 2.1](#listing-21-instructions-for-generating-a-phrase-and-creating-a-wallet) below.
 
 ##### _Listing 2.1: Instructions for generating a phrase and creating a wallet_
 
@@ -499,7 +529,7 @@ Consider a traditional paper check that you might use to pay your landlord. The 
 
 Let's pretend that banks actually use those signatures to validate that you actually signed the check and it's not someone else forging your signature (spoiler alert: they don't for the most part). The blockchain model of transferring funds is pretty similar. You need a way to sign the transaction so the network can confirm it as valid and change the balances of the corresponding accounts.
 
-The concept of cryptographic signing is fascinating, but well beyond the scope of this tutorial. We'll provide [additional resources](#additional-resources) at the end if you want to explore it more, but recall from [Box 2.x]() that your keys, along with hashing algorithms and a one-way function, are designed for this very purpose.
+The concept of cryptographic signing is fascinating, but well beyond the scope of this tutorial. We'll provide [additional resources](#additional-resources) at the end if you want to explore it more, but recall that your keys, along with hashing algorithms and a one-way function, are designed for this very purpose.
 
 With those building blocks in mind, we're ready to search the docs for a way to send and confirm a transaction.
 
