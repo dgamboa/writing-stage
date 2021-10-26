@@ -57,9 +57,11 @@ After the warm up, we provide a step-by-step implementation of the functionality
 
 The implementation is followed by a challenge that aims to give you just enough instructions and references to allow you to implement the functionality on your own if you want to take a shot at it. This allows you to exercise [active recall](https://en.wikipedia.org/wiki/Active_recall) and increases your mind's ability to make connections.
 
+> ADD IMAGE OF STRUCTURE: concept (warm up) -> implementation (guided learning) -> challenge (individual reps)
+
 ### Wallet Preview
 
-By the time you're done with this tutorial, you'll have a functional wallet capable of changing the state of the Solana blockchain by receiving and transferring on-chain funds. In [Step 2](#step-2-creating-a-wallet), we'll generate a 12-word phrase that will grant us access to a wallet.
+By the time you're done with this tutorial, you'll have a functional wallet capable of changing the state of the Solana blockchain by receiving and transferring onchain funds. In [Step 2](#step-2-creating-a-wallet), we'll generate a 12-word phrase that will grant us access to a wallet.
 
 ![](./public/create.png)
 
@@ -67,7 +69,7 @@ Then we'll build a function to fetch the balance of our newly created wallet in 
 
 ![](./public/airdrop.png)
 
-Having added funds to our wallet, we'll build the ability to transfer funds to another wallet in [Step 5](#step-5-transferring-funds).
+Having added funds to our wallet, we'll build the ability to transfer funds to another wallet in [Step 5](#step-5-transferring-funds) using bank checks as a scaffolding analogy.
 
 ![](./public/transfer.png)
 
@@ -75,17 +77,19 @@ Finally, we'll use the phrase we generated in [Step 2](#step-2-creating-a-wallet
 
 ![](./public/import.png)
 
-Although building a production-ready, non-custodial wallet like Phantom or MetaMask is beyond the scope of this tutorial, by the end of it you'll have developed a foundation of judgment that will let you better allocate your learning time as you explore new projects. To assist with that, we'll end the tutorial with a list of [additional resources](#additional-resources) that you'll be well prepared to explore.
+Although building a production-ready, non-custodial wallet like [Phantom]() or [MetaMask]() is beyond the scope of this tutorial, by the end of it you'll have developed a foundation of judgment that will let you better allocate your learning time as you explore new projects. To assist with that, we'll end the tutorial with a list of [additional resources](#additional-resources) that you'll be well prepared to explore.
+
+> QUOTE or IMAGE: journey of a thousand miles begins with a single step
 
 ## Step 2: Creating a Wallet
 
-Crypto wallets are the most critical piece of user-facing infrastructure in the blockchain space. In the same way that the browser brought the web to a mass audience by providing an easy-to-use gateway into the web's underlying servers and databases, wallets provide users with an easy-to-use gateway into blockchain protocols.
+Crypto wallets are the most critical piece of user-facing infrastructure in the blockchain space. In the same way that the browser brought the web to a mass audience by providing an easy-to-use gateway into the underlying servers and databases, wallets provide users with an easy-to-use gateway into blockchain protocols.
 
-A wallet is less like the wallet you use for your credit cards, and a lot more like a keychain. If you think of a blockchain as a giant safe with digital safety deposit boxes, wallets are the keychains where you keep the keys to your box. Once you have access to a box, you can manage the contents of it by receiving, sending, holding and spending digital assets.
+A wallet is less like the wallet you use for your credit cards, and a lot more like a keychain. If you think of a blockchain as a giant bank safe with digital safety deposit boxes, wallets are the keychains where you keep the key to your box. Once you have access to a box, you can manage the contents of it by receiving, sending, holding and spending digital assets.
 
 > Consider Picture: safety deposit boxes in a safe.
 
-We can think of the box itself as a chunk of memory on the blockchain. The digital box location is referred to as a public key, or more intuitively as a public address, and can be shared with anyone in the same way you might share your address to receive mail at home. As the name implies, this is widely available to others on the network and it is the identifier others use to send digital assets to someone's box.
+We can think of the box itself as a chunk of memory on the blockchain. The digital box location is referred to as a public key, or more intuitively as a public address, and can be shared with anyone in the same way you might share your address to receive mail at home. As the name implies, this is widely available to others on the network and it is the identifier others use to send digital assets to a box.
 
 The key that can unlock the safety deposit box is referred to as the private key. Anyone with access to a box's private key has access to the box, which is why it's paramount to keep the key private - hence the name, private key.
 
@@ -757,24 +761,33 @@ const handleImport = async (values: any) => {
 
 ## Conclusion
 
-Congratulations! You've built a crypto wallet that is capable of managing on-chain digital assets on the Solana protocol. That's no small feat!
+Congratulations! You've built a crypto wallet that is capable of managing onchain digital assets on the Solana protocol. That's no small feat!
 
-By writing a function to generate a mnemonic phrase and using it to create a keypair in [Step 2](#step-2-creating-a-wallet), you gave the wallet access to a unique account. You then implemented functionality to connect to one of Solana's networks to fetch data from it in [Step 3](#step-3-fetching-a-balance), in this case the account's balance. Next, you wrote functionality to request test tokens via an airdrop in [Step 4](#step-4-airdropping-funds). And after that you sent some of those funds to another account by learning how to initiate and confirm fund transfers in [Step 5](#step-5-transferring-funds). Finally, you learned how to recover an account in [Step 6](#step-6-recovering-an-account) by leveraging the same code we used in [Step 2](#step-2-creating-a-wallet).
+By writing a function to generate a mnemonic phrase and using it to create a keypair in [Step 2](#step-2-creating-a-wallet), you gave the wallet access to a unique account. You then implemented functionality to connect to one of Solana's networks and fetch balance data from it in [Step 3](#step-3-fetching-a-balance).
 
-In the process of building the wallet, you also learned some of the fundamentals of developing for Web 3. You learned how the frontend part of the stack is practically identical to what you're already used to. You also learned that interacting with blockchain protocols means leveraging API libraries that help you create, read and update data in a familiar way. Importantly, you learned just enough about public-key cryptography, crypto wallets, and blockchain concepts like airdrops, keypairs, and mnemonics to unlock a whole world of learning paths to explore next.
+Next, you wrote functionality to request test tokens via an airdrop in [Step 4](#step-4-airdropping-funds). And after that you sent some of those funds to another account by learning how to initiate and confirm fund transfers in [Step 5](#step-5-transferring-funds). Finally, you learned how to recover an account in [Step 6](#step-6-recovering-an-account) by leveraging the same code we used in [Step 2](#step-2-creating-a-wallet).
 
-Web 3 holds a world of promise for the future of the internet. More importantly, there are vasts areas of greenspace for developers to build amazing things and a ton of low hanging fruit problems to solve.
+In the process of building the wallet, you learned some of the fundamentals of developing for Web 3. You learned how the frontend of the stack is practically identical to what you're already used to. You also learned that interacting with blockchain protocols means leveraging API libraries that help you create, read and update data in a familiar way.
 
-If you want to connect with an amazing community of developers, join us on [Discord](https://discord.gg/fszyM7K). The opportunities are endless and we wish you well on your journey!
+Importantly, you learned just enough about public-key cryptography, crypto wallets, and blockchain concepts like airdrops, keypairs, and mnemonics to unlock a whole world of learning paths to explore next.
+
+Web 3 holds a world of promise for the future of the internet. Moreover, there are vasts areas of greenspace for developers to build amazing things and a ton of low hanging fruit problems to solve.
+
+The opportunities are endless and we wish you well on your journey!
+
+_If you want to connect with an amazing community of developers, join us on [Discord](https://discord.gg/fszyM7K)._
+
+> IMAGE: this is just the beginning
 
 ## Additional Resources
 
 - [Figment Learn Pathways](https://learn.figment.io/)
+- [Solana Protocol Documentation](https://docs.solana.com/developing/programming-model/overview)
+- [Solana Web3.js Documentation](https://solana-labs.github.io/solana-web3.js/)
 - [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki): On HD Wallets
 - [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki): On Recovery Phrases
 - [Why the Blockchain Matters](https://seths.blog/2021/05/why-the-blockchain-matters/) by Seth Godin
 - [The Quest for Digital Cash](https://bitcoinmagazine.com/.amp/culture/bitcoin-adam-back-and-digital-cash) by Bitcoin Magazine
-- [Solana Documentation](https://docs.solana.com/developing/programming-model/overview)
-- [Solana Web3.js Documentation](https://solana-labs.github.io/solana-web3.js/)
 - [The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Cryptography](https://www.worldcat.org/title/code-book-the-science-of-secrecy-from-ancient-egypt-to-quantum-cryptography/oclc/738479322) by Simon Singh
+- [Ethereum Documentation]()
 - [Mastering Ethereum: Building Smart Contracts and DApps](https://github.com/ethereumbook/ethereumbook) by Andreas M. Antonopoulos, Gavin Wood
