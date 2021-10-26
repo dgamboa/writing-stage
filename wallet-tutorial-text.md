@@ -15,7 +15,7 @@ We've tried to show you the door (or maybe part of it). Your job is to discover 
 > You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes.
 
 ![](./public/cat.jpeg)
-<p style="font-size:12px;text-align:center;font-style:italic">Figure 1: Always important to have a good guide when exploring unfamiliar territory</p>
+<p align="center"><i><b>Figure 1:</b> Always important to have a good guide when exploring unfamiliar territory</i></p>
 
 ## Step 1: Up and Running
 
