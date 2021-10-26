@@ -100,7 +100,7 @@ In this tutorial, we'll be building a type of wallet called a Hierarchical Deter
 ---
 
 <details>
-  <summary style="font-weight:bold">Box 2.1: Why is the secret recovery phrase also called a mnemonic?</summary>
+  <summary><b>Box 2.1: Why is the secret recovery phrase also called a mnemonic?</b></summary>
 
   The concept of a mnemonic phrase was introduced by Bitcoin Improvement Proposal 39 ([BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)). The term "mnemonic" refers to a pattern that makes something easier to remember. For instance, some of you might be familiar with the order of operations mnemonic in math: PEMDAS, or "please excuse my dear aunt Sally".
 
