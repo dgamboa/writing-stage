@@ -16,7 +16,7 @@ The opportunities are endless and we wish you well on your journey!
 
 _If you want to connect with an amazing community of developers, join us on [Discord](https://discord.gg/fszyM7K)._
 
-![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/airdrop.jpeg)
+![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/begin.jpeg)
 ##### _Figure 9: This is just the beginning, godspeed!_
 
 ## Additional Resources
