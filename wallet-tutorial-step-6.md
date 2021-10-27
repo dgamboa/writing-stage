@@ -7,15 +7,11 @@ The beauty of public-key cryptography is that the private key is effectively you
 Recall that we've built a type of wallet called a Hierarchical Deterministic (HD) wallet, which means we can map our 12-word phrase to a seed. Since the keypair that makes the account is derived from this seed, as long as we have the recovery phrase, we can get access to the keypair and therefore the account.
 
 ---
+**Box 6.1: Industrial-Strength Wallet Access**
 
-<details>
-  <summary><b>Box 6.1: Industrial-Strength Wallet Access</b></summary>
+In the context of an industrial-strength wallet, you'll be using the phrase as a recovery mechanism only and will leverage other, simpler methods for day-to-day access but the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds.
 
-  In the context of an industrial-strength wallet, you'll be using the phrase as a recovery mechanism only and will leverage other, simpler methods for day-to-day access but the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds.
-
-  Wallets like [MetaMask](https://metamask.io/) and [Phantom](https://phantom.app/) instantiate first-time, local access using recovery phrases and rely on locally encrypted password hashes for subsequent logins.
-</details>
-
+Wallets like [MetaMask](https://metamask.io/) and [Phantom](https://phantom.app/) instantiate first-time, local access using recovery phrases and rely on locally encrypted password hashes for subsequent logins.  
 ---
 
 If you saved your test account's recovery phrase, we'll use it now. Feel free to click log out at the top right. Once we've finished this step, you'll once again have access to your devnet SOL.

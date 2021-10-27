@@ -8,7 +8,7 @@ We'll be connecting to one of Solana's networks, and fetching the balance for th
 
 The concept of various networks for a single protocol is similar to that of different environments for an app (e.g. development, test, production, etc). Typically blockchain protocols have a main network or mainnet, which refers to the production blockchain with real economic value and official transactions, and at least one experimentation network, which refers to an identical blockchain used to test features before they go live on mainnet.
 
-![](https://github.com/dgamboa/writing-stage/tree/main/public/consultant.jpeg)
+![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/consultant.jpeg)
 ##### _Figure 4: It's always important to test on devnet before deploying on mainnet_
 
 Solana has a production network called mainnet and two exploration networks called testnet and devnet. Solana's devnet is designed for developers and users to play with various features and debug dApps before launching on mainnet with real economic consequences. The testnet is where Solana tests potential protocol updates.
@@ -26,15 +26,11 @@ The description for `endpoint` mentions that it's a "URL to the fullnode JSON RP
 As for `commitmentOrConfig`, it looks like the definition for `Commitment` types describes it as the "level of commitment desired when querying state", which is a meaningless definition to us at this point. However, it looks like `Commitment` can be one of several strings so we should choose one and test the function. In this case, we can choose "confirmed" as a reasonable guess and move forward.
 
 ---
-
-<details>
-  <summary><b>Box 3.1: A Note on Technical Sophistication</b></summary>
+  **Box 3.1: A Note on Technical Sophistication**
 
   In his ground-breaking series on software development, Michael Hartl and the [Learn Enough](https://www.learnenough.com/) team introduced the concept of _technical sophistication_ as a key attribute of the technical development process. They define it as "the combination of hard and soft skills that make it seem like you can magically solve any technical problem."
 
   Figuring things out and being resourceful is at least half the battle, and sometimes the whole war. When in doubt, refer to the [xkcd flowchart](https://m.xkcd.com/627/).
-</details>
-
 ---
 
 Putting the above together, we can build our connection instance:

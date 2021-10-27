@@ -8,7 +8,7 @@ But there's one more important component: we need to prove to the network that w
 
 Consider a traditional paper check that you might use to pay your landlord. The check has your name and address printed on the top left. It includes a field for you to write the recipient's name along with a field for you to write the amount you're paying. Finally, it includes a field for you to sign the check to validate to the bank that you're approving the transfer.
 
-![](https://github.com/dgamboa/writing-stage/tree/main/public/check.jpeg)
+![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/check.jpeg)
 ##### _Figure 8: Crypto transactions are like digital checks (with real signatures)._
 
 Let's pretend that banks actually use those signatures to validate that you actually signed the check and it's not someone else forging your signature (spoiler alert: they don't for the most part).
