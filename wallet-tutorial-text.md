@@ -314,7 +314,7 @@ There are a few ways to structure this part of the function. We've chosen to ass
 
 From the docs, we know `getBalance` returns a promise so we use `await` and assign its return value to the `balance` variable. By logging `balance`, we can see our account has zero balance as expected.
 
-But that's a bit anticlimactic. We know it's a new account and it should have zero balance. Nothing changed on the frontend because the default value was zero. We need to fund the account to see the balance change, and we'll do just that in the next step.
+But that's a bit anticlimactic. We know it's a new account and it should have zero balance. Nothing changed on the frontend because the default value was zero. We need to fund the account to see the balance change, and we'll do just that in [Step 4](#step-4-airdropping-funds).
 
 ##### _Listing 3.2: Code for fetching a balance_
 
@@ -374,64 +374,32 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
 
 ## Step 4: Airdropping Funds
 
-We've now generated a wallet and connected it to the Solana blockchain. In the previous step, we confirmed that our account's balance is zero but wouldn't it be nice to fund our account so we can see the balance change? You might be wondering whether we'll now need to transfer real money so we can test the account, but as we discussed in [Step 3](#step-3-fetching-a-balance), a blockchain's devnet typically provides a way to test transactions without risking real economic value.
+We've now generated a wallet and connected it to the Solana blockchain. In the previous step, we confirmed that our account's balance is zero but wouldn't it be nice to fund our account so we can see the balance change?
 
-In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
+You might be wondering whether we'll now need to transfer real money so we can test the account, but as we discussed in [Step 3](#step-3-fetching-a-balance), a blockchain's devnet typically provides a way to test transactions without risking real economic value.
+
+In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. 
 
 ![](./public/airdrop.jpeg)
-<p style="font-size:12px;text-align:center;font-style:italic">Figure [x]: We're about reinforce our supply lines with some devnet SOL</p>
+<p align="center"><i><b>Figure 5:</b> We're about reinforce our supply lines with some devnet SOL</i></p>
+
+In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
+
+---
+
+<details>
+  <summary><b>Box 4.1: Growth Hacking with Aidrops</b></summary>
+
+  Protocols and companies use airdrops as a marketing technique to hype their launch and catalyze user growth. By issuing tokens to users that joined by a certain date or performed some action on the protocol, they can spread the word and, if the airdrop is successful, make more people aware of the solution they're building.
+
+  For example, the Stellar Development Foundation performed a $125 million airdrop in late 2018 to get Stellar Lumens in the hands of crypto users and try to boost mainstream adoptions.
+</details>
+
+---
 
 On the right side of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
 
 Once we've completed this step, our balance will automatically increase when we click **Airdrop**. This will position us well for [Step 5](#step-5-transferring-funds) where we'll build functionality to send funds to other Solana accounts.
-
-
-> Consider Aside: famous project airdrops and how it "pays" to be an early adopter in crypto
-
-### Challenge
-
-If you open the browser's console from the `/wallet` page, and click on the **Airdrop** button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1](#listing-41-instructions-for-writing-airdrop-function) below.
-
-##### _Listing 4.1: Instructions for writing airdrop function_
-
-```javascript
-const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
-  // This line ensures the function returns before running if no account has been set
-  if (!account) return;
-
-  try {
-    // (a) review the import guidance on line 1
-    // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
-    // Documentation References:
-    //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
-    console.log("Airdrop functionality not implemented yet!");
-    const connection = "";
-
-    // (c) get the key using one of the accessors on the account passed in as an argument
-    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
-    const publicKey = "";
-
-    // (d) request the airdrop using the connection instance
-    // Note that you should include the amount to airdrop (consider using the LAMPORTS_PER_SOL constant from the web3.js library)
-    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    const confirmation = "";
-
-    // (d) confirm the transaction using the connection instance and the confirmation string returned from the airdrop
-    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-    const result = "";
-
-    // (e) Refactor the refreshBalance function to return balances in SOL instead of Lamports (Hint: LAMPORTS_PER_SOL)
-
-    // This line returns the balance after the airdrop so the UI can be refreshed
-    return await refreshBalance(network, account);
-    // (f) You can now delete the console.log statement since the function is implemented!
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-};
-```
 
 ### Implementation
 
@@ -442,10 +410,12 @@ const connection = new Connection(clusterApiUrl(network), "confirmed");
 const publicKey = account.publicKey;
 ```
 
-Following our previous heuristic of searching the docs for keywords, we can now search for "airdrop" to see if perhaps there's a function we can leverage. Lo an behold the `Connection` class has a `requestAirdrop` function that looks promising. It takes in `to: PublicKey` and `lamports: number`, and returns a `promise` that resolves to a string. You might be wondering what a "lamport" is. Solana's native token, SOL, is divisible into 1 billion lamports. You can think of lamports as the cents to SOL's dollar.
+Following our previous heuristic of searching the docs for keywords, we can now search for "airdrop" to see if there's a function we can leverage. Lo and behold the `Connection` class has a `requestAirdrop` function that looks promising. It takes in two properties - `to: PublicKey` and `lamports: number` - and returns a `promise` that resolves to a string.
 
-> Consider Aside: Leslie Lamport
-> Consider Picture: Leslie Lamport
+You might be wondering what a "lamport" is. Solana's native token, SOL, is divisible into 1 billion lamports. You can think of lamports as the cents to SOL's dollar.
+
+![](./public/leslie.jpeg)
+<p align="center"><i><b>Figure 6:</b> This is also a lamport. Leslie Lamport is a computer scientist who has made key contributions to distributed systems.</i></p>
 
 It's not clear from the documentation, but after a little research you can confirm that the returned string represents a confirmation ID or `signature`. From a function design standpoint, it seems reasonable that to request an airdrop we should pass in the account address (public key) and the amount of funds we're requesting.
 
@@ -524,6 +494,51 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
     .
     .
     .
+  }
+};
+```
+
+### Challenge
+
+If you open the browser's console from the `/wallet` page, and click on the **Airdrop** button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1](#listing-41-instructions-for-writing-airdrop-function) below.
+
+##### _Listing 4.1: Instructions for writing airdrop function_
+
+```javascript
+const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
+  // This line ensures the function returns before running if no account has been set
+  if (!account) return;
+
+  try {
+    // (a) review the import guidance on line 1
+    // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
+    // Documentation References:
+    //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
+    console.log("Airdrop functionality not implemented yet!");
+    const connection = "";
+
+    // (c) get the key using one of the accessors on the account passed in as an argument
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Keypair.html
+    const publicKey = "";
+
+    // (d) request the airdrop using the connection instance
+    // Note that you should include the amount to airdrop (consider using the LAMPORTS_PER_SOL constant from the web3.js library)
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    const confirmation = "";
+
+    // (d) confirm the transaction using the connection instance and the confirmation string returned from the airdrop
+    // Documentation Reference: https://solana-labs.github.io/solana-web3.js/classes/Connection.html
+    const result = "";
+
+    // (e) Refactor the refreshBalance function to return balances in SOL instead of Lamports (Hint: LAMPORTS_PER_SOL)
+
+    // This line returns the balance after the airdrop so the UI can be refreshed
+    return await refreshBalance(network, account);
+    // (f) You can now delete the console.log statement since the function is implemented!
+  } catch (error) {
+    console.log(error);
+    return;
   }
 };
 ```
