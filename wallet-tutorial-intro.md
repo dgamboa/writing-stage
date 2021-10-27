@@ -14,8 +14,8 @@ We've tried to show you the door (or maybe part of it). Your job is to discover 
 
 > You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes.
 
-![](https://github.com/dgamboa/writing-stage/tree/main/public/cat.jpeg)
-<p align="center"><i><b>Figure 1:</b> Always important to have a good guide when exploring unfamiliar territory</i></p>
+![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/cat.jpeg)
+##### _Figure 1: Always important to have a good guide when exploring unfamiliar territory_
 
 ## Step 1: Up and Running
 
