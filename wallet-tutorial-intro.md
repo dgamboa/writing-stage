@@ -75,5 +75,5 @@ Finally, we'll use the phrase we generated in [Step 2](https://learn.figment.io/
 
 Although building a production-ready, non-custodial wallet like [Phantom](https://phantom.app/) or [MetaMask](https://metamask.io/) is beyond the scope of this tutorial, by the end of it you'll have developed a foundation of judgment that will let you better allocate your learning time as you explore new projects. To assist with that, we'll end the tutorial with a list of [additional resources](#additional-resources) that you'll be well prepared to explore.
 
-![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/main/public/journey.jpeg)
+![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/journey.jpeg)
 ##### _Figure 2: A journey of a thousand miles begins with a single step_
