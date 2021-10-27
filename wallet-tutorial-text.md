@@ -403,7 +403,7 @@ Once we've completed this step, our balance will automatically increase when we 
 
 ### Implementation
 
-In [Step 3](#step-3-fetching-a-balance) we learned how to instantiate a connection to one of Solana's networks, and how to assign our account's public key property to a variable. We can apply that same code here:
+In [Step 3](#step-3-fetching-a-balance) we learned how to instantiate a connection to one of Solana's networks, and how to assign our account's public key property to a variable. We can apply that same code here to start writing the `handleAirdrop` function in `utils/index.ts`:
 
 ```javascript
 const connection = new Connection(clusterApiUrl(network), "confirmed");
@@ -415,7 +415,7 @@ Following our previous heuristic of searching the docs for keywords, we can now 
 You might be wondering what a "lamport" is. Solana's native token, SOL, is divisible into 1 billion lamports. You can think of lamports as the cents to SOL's dollar.
 
 ![](./public/leslie.jpeg)
-<p align="center"><i><b>Figure 6:</b> This is also a lamport. Leslie Lamport is a computer scientist who has made key contributions to distributed systems.</i></p>
+<p align="center"><i><b>Figure 6:</b> This is also a lamport. Leslie Lamport is the lamport's namesake. He's a computer scientist who has made key contributions to distributed systems.</i></p>
 
 It's not clear from the documentation, but after a little research you can confirm that the returned string represents a confirmation ID or `signature`. From a function design standpoint, it seems reasonable that to request an airdrop we should pass in the account address (public key) and the amount of funds we're requesting.
 
@@ -426,7 +426,7 @@ const confirmation = await connection.requestAirdrop(
 );
 ```
 
-The above function will work just fine and our users will be able to airdrop 1 SOL every time they click on the button. But you can clean it up a bit by leveraging the `LAMPORTS_PER_SOL` constant from web3.js.
+The above function will work just fine and our users will be able to airdrop 1 SOL every time they click on the button. But you can clean it up a bit by importing and passing in the `LAMPORTS_PER_SOL` constant, which itself equals one billion, from web3.js.
 
 ```javascript
 const confirmation = await connection.requestAirdrop(
@@ -437,9 +437,7 @@ const confirmation = await connection.requestAirdrop(
 
 Finally, before we can refresh our account's balance automatically, we need a way to make sure the blockchain ledger has been updated with our airdropped funds before we call `refreshBalance`. As with any database-type operations, blockchain state changes are asynchronous. In fact, given the decentralized nature of most blockchain protocols, some updates [can take a while](https://twitter.com/CryptoKitties/status/937444644740198400?s=20).
 
-> Consider Picture: CryptoKitties
-
-With that in mind, we need to wait for the airdrop to be confirmed before refreshing the balance. Searching the docs once again, we can see that our Connection class includes a confirmTransaction method that takes in a confirmation `signature` and `commitment`, and returns a `promise` that resolves once the transaction is confirmed by the network.
+With that in mind, we need to wait for the airdrop to be confirmed before refreshing the balance. Searching the docs once again, we can see that our `Connection` class includes a `confirmTransaction` method that takes in a confirmation `signature` and `commitment`, and returns a `promise` that resolves once the transaction is confirmed by the network.
 
 ```javascript
 await connection.confirmTransaction(confirmation, "confirmed");
@@ -451,15 +449,16 @@ Note that we don't need to assign a variable to the confirmation here. Once our 
 return await refreshBalance(network, account);
 ```
 
-Avid readers might have noticed that the balance in our account looks wrong. It reads one billion SOL when it should read 1 SOL. Now that we know what lamports are, how they relate to SOL, and how to use the `LAMPORTS_PER_SOL` constant, we can go back to our `refreshBalance` function and fix the bug by updating the return value.
+Avid readers might have noticed that the balance in our account looks wrong. It reads one billion SOL when it should read 1 SOL. Now that we know what lamports are, how they relate to SOL, and how to use the `LAMPORTS_PER_SOL` constant, we can go back to our `refreshBalance` function and fix the bug by updating its return value.
 
 ```javascript
 return balance / LAMPORTS_PER_SOL;
 ```
 
-We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](#step-5-transferring-funds), so buckle up.
+We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](#step-5-transferring-funds), so brace yourself.
 
-> Consider Picture: buckle up reference
+![](./public/climbing.jpeg)
+<p align="center"><i><b>Figure 7:</b> Getting close to the summit.</i></p>
 
 ##### _Listing 4.2: Code for airdropping funds_
 
@@ -489,7 +488,7 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
     .
     .
     .
-    return balance / LAMPORTS_PER_SOL
+    return balance / LAMPORTS_PER_SOL;
   } catch (error) {
     .
     .
@@ -545,25 +544,177 @@ const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
 
 ## Step 5: Transferring Funds
 
-Now that we've funded our account with test tokens on devnet, we can start to think about how we might use those funds. In a real-world application, we might want to swap SOL for another token, pay for a good or service in SOL, or even gift someone some SOL. To do that we need a way to let the network ledger know that our account should transfer funds to another account.
+Now that we've funded our account with test tokens on devnet, we can start to think about how we might use those funds. In a real-world application, we might want to swap SOL for another token, pay for goods or services in SOL, or even gift someone some SOL. To do that we need a way to let the network ledger know that our account should transfer funds to another account.
 
 Thinking about it from first principles, we know we'll need a function that takes in two addresses - the sender and the recipient. We also know that we'll need to pass in an amount - the number of SOL or lamports that we want to send.
 
 But there's one more important component: we need to prove to the network that we are in fact the owner of those funds and that we approve the transfer.
 
-Consider a traditional paper check that you might use to pay your landlord. The check has your name and address printed on the top left. It includes a field for you to write the recipient's name along with a field for you to write the amount you're paying her. Finally, it includes a field for you to sign the check to validate to the bank that you're approving the transfer.
+Consider a traditional paper check that you might use to pay your landlord. The check has your name and address printed on the top left. It includes a field for you to write the recipient's name along with a field for you to write the amount you're paying. Finally, it includes a field for you to sign the check to validate to the bank that you're approving the transfer.
 
 ![](./public/check.jpeg)
+<p align="center"><i><b>Figure 8:</b> Crypto transactions are like digital checks (with real signatures).</i></p>
 
-Let's pretend that banks actually use those signatures to validate that you actually signed the check and it's not someone else forging your signature (spoiler alert: they don't for the most part). The blockchain model of transferring funds is pretty similar. You need a way to sign the transaction so the network can confirm it as valid and change the balances of the corresponding accounts.
+Let's pretend that banks actually use those signatures to validate that you actually signed the check and it's not someone else forging your signature (spoiler alert: they don't for the most part).
 
-The concept of cryptographic signing is fascinating, but well beyond the scope of this tutorial. We'll provide [additional resources](#additional-resources) at the end if you want to explore it more, but recall that your keys, along with hashing algorithms and a one-way function, are designed for this very purpose.
+The blockchain model of transferring funds is pretty similar. You need a way to sign the transaction so the network can confirm it as valid and change the corresponding balances.
+
+The concept of cryptographic signing is fascinating, but well beyond the scope of this tutorial. We'll provide [additional resources](#additional-resources) at the end if you want to explore it more, but recall that your keys, along with hashing algorithms and a one-way function, are designed for this very purpose. The signature authenticates the sender and proves to the recipient that the message hasn't been compromised.
 
 With those building blocks in mind, we're ready to search the docs for a way to send and confirm a transaction.
 
-### Challenge
+### Implementation
 
 If you click on the **Send** button on the wallet dashboard, a drawer component opens up that shows a form structured as a paper check thus building on our analogy above. It includes all the components of a transaction but the **Sign and Send** button doesn't work yet.
+
+Navigating to `components/TransactionLayout/index.tsx` we see a partially implemented `transfer` function.
+
+Based on [Step 3](#step-3-fetching-a-balance) and [Step 4](#step-4-airdropping-funds) we know that we're going to need a connection to the network. We can once again leverage our previous code:
+
+```javascript
+const connection = new Connection(clusterApiUrl(network), "confirmed");
+```
+
+We can guess that we'll need to build some sort of transaction object and send it through the connection, but it's not immediately obvious how we might do that. By searching the docs, it looks like there are two ways to send transactions - the `sendTransaction` method in `Connection` and the general function `sendAndConfirmTransaction`.
+
+We're going to want to request a confirmation so we can update our balance after sending the transaction, so the latter seems like a good option to try.
+
+Reading through the function's specs, it looks like we need to pass in a `connection`, some sort of `transaction` object and a `signers array`. Moreover, the description says that this function will "sign, send and confirm a transaction" so it looks like we're on the right track. We can begin by importing this function and using it, knowing that we're going to build out its inputs next.
+
+```javascript
+const confirmation = await sendAndConfirmTransaction(
+  connection,
+  transaction,
+  signers
+);
+```
+
+We already have a `connection`, so we can immediately turn to the `transaction` parameter. Following the link to the `Transaction` class in the docs, it looks like to create a `transaction` object, we can use its constructor.
+
+```javascript
+const transaction = new Transaction()
+console.log(transaction)
+
+// console:
+> Transaction {signatures: Array(0), feePayer: undefined, instructions: Array(0), recentBlockhash: undefined, nonceInfo: undefined}
+```
+
+Looking at the transaction we created, it clearly lacks any of the components we need for a valid transaction like `sender`, `recipient` and `amount`, but it seems to have a familiar structure that we should be able to populate. You could research each of them, but let's jump right into the `instructions` property as it seems like a promising place to start.
+
+Unfortunately, the docs aren't very intuitive in how to progress but we can leverage our technical sophistication. There's a very useful class called `SystemProgram` with a `transfer` method, which "generates a transaction instruction that transfers lamports from one account to another." This seems like exactly what we need.
+
+The `transfer` method takes in a `TransferParams` object that requires a `sender`, `recipient` and `amount` in lamports. That matches the data we're hoping to use for our transaction and we can get that from the account in context state and the form inputs. The resulting instructions look like this:
+
+```javascript
+const instructions = SystemProgram.transfer({
+  fromPubkey: account.publicKey,
+  toPubkey: new PublicKey(form.to),
+  lamports: form.amount,
+});
+```
+
+Notice that we have to instantiate a `PublicKey` for the recipient because the form is passing in the key as a string but the `toPubkey` property expects a `PublicKey` type. To incorporate these into our transaction, we can use the `add` method:
+
+```javascript
+transaction.add(instructions);
+```
+
+Or with a bit of on the fly refactoring, we can simply instantiate the transaction after creating the instructions and add them immediately:
+
+```javascript
+const transaction = new Transaction().add(instructions);
+```
+
+We have two out of the three parameters ready for the `sendAndConfirmTransaction` function - `connection` and `transaction`.
+
+Now we need the `signers array`. From the function's specification, we know `signers` will be an array with at least one `Signer` object. Reviewing the `Signer` type in the docs, it looks like it's an object with two properties - `publicKey` and `privateKey`. We can get both from the `account`, so we can build the `signers array`.
+
+```javascript
+const signers = [
+  {
+    publicKey: account.publicKey,
+    secretKey: account.secretKey,
+  },
+];
+```
+
+Now that all three parameters are complete, we can finally call `sendAndConfirmTransaction` and await its confirmation.
+
+```javascript
+const confirmation = await sendAndConfirmTransaction(
+  connection,
+  transaction,
+  signers
+);
+```
+
+With that we have a fully functional feature capable of transferring funds between Solana accounts. To complete the feature, we need to make sure we call the `refreshBalance` function to update the account's balance after transferring funds.
+
+```javascript
+const updatedBalance = await refreshBalance(network, account);
+setBalance(updatedBalance);
+```
+
+If you haven't already, airdrop some devnet SOL into your account and test transferring funds to another account - preferably another account that you also control so you can check the funds flow.
+
+Once you fill in the public address of your recipient and the amount, say one million lamports, the **Sign and Send** button will be enabled. Once you click **Sign and Send** you will see a successful message displayed at the top of the page along with a link to the [Solana Block Explorer](https://explorer.solana.com/?cluster=devnet) at the top left of the check.
+
+The [Solana Block Explorer](https://explorer.solana.com/?cluster=devnet) is a simple dashboard that allows you to search for specific blocks, accounts, transactions, contracts and tokens by network. It displays all the information related to the item you searched for.
+
+>IMAGE: exploration
+
+In this case, if you click the link on the check, you'll be able to see a basic overview of the transfer you just issued. In the middle of the page, you'll see our transfer's information - mainly, the sender (your public address) and how much SOL you sent; and the recipient (the other public address) and how much SOL they received.
+
+You might notice a field labeled "Fee (SOL)". If you scroll to the Account Input(s), you'll also notice that it was charged to your account. While the recipient received the funds you specified, your account was deducted the amount you sent plus a small fee. These [transaction fees](https://docs.solana.com/transaction_fees) are designed to reward validators for the compute power spent to process transactions.
+
+At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](#step-6-recovering-an-account) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
+
+##### _Listing 5.2: Code for transferring funds_
+
+```javascript
+const transfer = async () => {
+  if (!account) return;
+
+  try {
+    setTransactionSig("");
+
+    const connection = new Connection(clusterApiUrl(network), "confirmed");
+
+    const instructions = SystemProgram.transfer({
+      fromPubkey: account.publicKey,
+      toPubkey: new PublicKey(form.to),
+      lamports: form.amount,
+    });
+
+    const transaction = new Transaction().add(instructions);
+
+    const signers = [
+      {
+        publicKey: account.publicKey,
+        secretKey: account.secretKey,
+      },
+    ];
+
+    setSending(true);
+    const confirmation = await sendAndConfirmTransaction(
+      connection,
+      transaction,
+      signers
+    );
+    setTransactionSig(confirmation);
+    setSending(false);
+
+    const updatedBalance = await refreshBalance(network, account);
+    setBalance(updatedBalance);
+    message.success(`Transaction confirmed`);
+  } catch (error) {
+    message.error("Transaction failed, please check your inputs and try again");
+    console.log(error);
+  }
+};
+```
+
+### Challenge
 
 Navigate to `components/TransactionLayout/index.tsx` in your editor and follow the steps included as comments to finish writing the `transfer` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 5.1](#listing-51-instructions-for-writing-transfer-function) below.
 
@@ -616,145 +767,6 @@ const transfer = async () => {
   } catch (error) {
     console.log(error);
     message.error("Transaction failed, please check your inputs and try again");
-  }
-};
-```
-
-### Implementation
-
-Based on [Step 3](#step-3-fetching-a-balance) and [Step 4](#step-4-airdropping-funds) we know that we're going to need a connection to the network. We can once again leverage our previous code:
-
-```javascript
-const connection = new Connection(clusterApiUrl(network), "confirmed");
-```
-
-We can guess that we'll need to build some sort of transaction object and send it through the connection, but it's not immediately obvious how we might do that. By searching the docs, it looks like there are two ways to send transactions - the `sendTransaction` method in `Connection` and the general function `sendAndConfirmTransaction`. We're going to want to request a confirmation so we can update our balance after sending the transaction, so the latter seems like a good option to try.
-
-Reading through the function's specs, it looks like we need to pass in a `connection`, some sort of `transaction` object and a `signers array`. Moreover, the description says that this function will "sign, send and confirm a transaction" so it looks like we're on the right track. We can begin by importing this function and using it, knowing that we're going to build out its inputs next.
-
-```javascript
-const confirmation = await sendAndConfirmTransaction(
-  connection,
-  transaction,
-  signers
-);
-```
-
-We already have a `connection`, so we can immediately turn to the `transaction` parameter. Following the link to the `Transaction` class in the docs, it looks like to create a `transaction` object, we can use its constructor.
-
-```javascript
-const transaction = new Transaction()
-console.log(transaction)
-
-// console:
-> Transaction {signatures: Array(0), feePayer: undefined, instructions: Array(0), recentBlockhash: undefined, nonceInfo: undefined}
-```
-
-Looking at the transaction we created, it clearly lacks any of the components we need for a valid transaction like `sender`, `recipient` and `amount`, but it seems to have a rational structure that we should be able to populate. You could research each of them, but let's jump right into the `instructions` property as it seems like a promising place to start.
-
-Unfortunately, the docs aren't very intuitive in how to progress but that's OK. There's a very useful class called `SystemProgram` with a `transfer` method, which "generates a transaction instruction that transfers lamports from one account to another." This seems like exactly what we need.
-
-The `transfer` method takes in an `TransferParams` object that requires a `sender`, `recipient` and `amount` in lamports. That matches the data we're hoping to use for our transaction and we can get that from the account in context state and the form inputs. The resulting instructions look like this:
-
-```javascript
-const instructions = SystemProgram.transfer({
-  fromPubkey: account.publicKey,
-  toPubkey: new PublicKey(form.to),
-  lamports: form.amount,
-});
-```
-
-Notice that we have to instantiate a `PublicKey` for the recipient because the form is passing in the key as a string but the `toPubkey` property expects a `PublicKey` type. To incorporate these into our transaction, we can use the `add` method:
-
-```javascript
-transaction.add(instructions);
-```
-
-Or with a bit of on the fly refactoring, we can simply instantiate the transaction after creating the instructions and add them immediately:
-
-```javascript
-const transaction = new Transaction().add(instructions);
-```
-
-We have two out of the three parameters ready for the `sendAndConfirmTransaction` function - `connection` and `transaction`. Now we need the `signers array`. From the function's specification, we know `signers` will be an array with at least one `Signer` object. Reviewing the `Signer` type in the docs, it looks like it's an object with two properties - `publicKey` and `privateKey`. We can get both from the `account`, so we can build the `signers array`.
-
-```javascript
-const signers = [
-  {
-    publicKey: account.publicKey,
-    secretKey: account.secretKey,
-  },
-];
-```
-
-Now that all three parameters are complete, we can finally call `sendAndConfirmTransaction` and await its confirmation.
-
-```javascript
-const confirmation = await sendAndConfirmTransaction(
-  connection,
-  transaction,
-  signers
-);
-```
-
-With that we have a fully functional feature capable of transferring funds between Solana accounts. To complete the feature, we need to make sure we call the `refreshBalance` function to update the account's balance after transferring funds.
-
-```javascript
-const updatedBalance = await refreshBalance(network, account);
-setBalance(updatedBalance);
-```
-
-If you haven't already, airdrop some devnet SOL into your account and test transferring funds to another account - preferably another account that you also control so you can check the funds flow. Once you fill in the public address of your recipient amount and the amount, say 1,000,000 lamports, the **Sign and Send** button will be enabled. Once you click **Sign and Send** you will see a successful message displayed at the top of the page along with a link at the top left of the check to the [Solana Block Explorer](https://explorer.solana.com/?cluster=devnet).
-
-The [Solana Block Explorer](https://explorer.solana.com/?cluster=devnet) is a simple dashboard that allows you to search for specific blocks, accounts, transactions, contracts and tokens by network. It displays all the information related to the item you searched for.
-
-In this case, if you click the link on the check, you'll be able to see a basic overview of the transfer you just issued. In the middle of the page, you'll see our transfer's information - mainly, the sender (your public address) and how much SOL you sent; and the recipient (the other public address) and how much SOL they received.
-
-You might notice a field labeled "Fee (SOL)". If you scroll to the Account Input(s), you'll also notice that it was charged to your account. While the recipient received the funds you specified, your account was deducted the amount you sent plus a small fee. These [transaction fees](https://docs.solana.com/transaction_fees) are designed to reward validators for the compute power spent to process transactions.
-
-At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](#step-6-recovering-an-account) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
-
-##### _Listing 5.2: Code for transferring funds_
-
-```javascript
-const transfer = async () => {
-  if (!account) return;
-
-  try {
-    setTransactionSig("");
-
-    const connection = new Connection(clusterApiUrl(network), "confirmed");
-
-    const instructions = SystemProgram.transfer({
-      fromPubkey: account.publicKey,
-      toPubkey: new PublicKey(form.to),
-      lamports: form.amount,
-    });
-
-    const transaction = new Transaction().add(instructions);
-
-    const signers = [
-      {
-        publicKey: account.publicKey,
-        secretKey: account.secretKey,
-      },
-    ];
-
-    setSending(true);
-    const confirmation = await sendAndConfirmTransaction(
-      connection,
-      transaction,
-      signers
-    );
-    setTransactionSig(confirmation);
-    setSending(false);
-
-    const updatedBalance = await refreshBalance(network, account);
-    setBalance(updatedBalance);
-    message.success(`Transaction confirmed`);
-  } catch (error) {
-    message.error("Transaction failed, please check your inputs and try again");
-    console.log(error);
   }
 };
 ```
