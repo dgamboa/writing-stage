@@ -126,7 +126,6 @@ You might notice a field labeled "Fee (SOL)". If you scroll to the Account Input
 At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](https://learn.figment.io/tutorials/solana-wallet-dapp-step-6) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
 
 ##### _Listing 5.2: Code for transferring funds_
-
 ```javascript
 const transfer = async () => {
   if (!account) return;
@@ -175,7 +174,6 @@ const transfer = async () => {
 Navigate to `components/TransactionLayout/index.tsx` in your editor and follow the steps included as comments to finish writing the `transfer` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 5.1](#listing-51-instructions-for-writing-transfer-function) below.
 
 ##### _Listing 5.1: Instructions for writing transfer function_
-
 ```javascript
 // *Step 5*: implement a function that transfer funds
 const transfer = async () => {

@@ -36,7 +36,6 @@ const importedAccount = Keypair.fromSeed(seed);
 With those two lines of code, we have effectively implemented authentication and allowed users to access their accounts from any device as long as they have their recovery phrase.
 
 ##### _Listing 6.2: Code for Recovering an Account_
-
 ```javascript
 const handleImport = async (values: any) => {
   setLoading(true);
@@ -54,7 +53,6 @@ const handleImport = async (values: any) => {
 Navigate to `pages/recover.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 6.1](#listing-61-instructions-for-writing-recover-function) below.
 
 ##### _Listing 6.1: Instructions for writing recover function_
-
 ```javascript
 // *Step 6*: implement a function that recovers an account based on a mnemonic phrase
 const handleImport = async (values: any) => {

@@ -65,7 +65,6 @@ From the docs, we know `getBalance` returns a promise so we use `await` and assi
 But that's a bit anticlimactic. We know it's a new account and it should have zero balance. Nothing changed on the frontend because the default value was zero. We need to fund the account to see the balance change, and we'll do just that in [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4).
 
 ##### _Listing 3.2: Code for fetching a balance_
-
 ```javascript
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
   if (!account) return;
@@ -87,7 +86,6 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
 If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1](#listing-31-instructions-for-fetching-an-accounts-balance) below.
 
 ##### _Listing 3.1: Instructions for fetching an account's balance_
-
 ```javascript
 // *Step 3*: implement a function that gets an account's balance
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {

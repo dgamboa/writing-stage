@@ -114,7 +114,6 @@ Once you click on **Finish**, you'll be routed to the wallet page that displays 
 In [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5) we'll enable the **Send** button and transfer funds.
 
 ##### _Listing 2.2: Code for creating a wallet_
-
 ```javascript
 const generatedMnemonic = Bip39.generateMnemonic();
 setMnemonic(generatedMnemonic);
@@ -131,7 +130,6 @@ setAccount(newAccount);
 In your editor, navigate to `pages/phrase.tsx` and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 2.1](#listing-21-instructions-for-generating-a-phrase-and-creating-a-wallet) below.
 
 ##### _Listing 2.1: Instructions for generating a phrase and creating a wallet_
-
 ```javascript
 useEffect(() => {
   // *Step 2*: implement a function that generates a mnemonic when the page renders, and uses it to create a wallet (i.e. account)

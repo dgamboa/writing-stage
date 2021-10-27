@@ -84,8 +84,9 @@ We've come a long way and now have a better idea of how blockchain protocols wor
 ![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/climbing.jpeg)
 ##### _Figure 7: Getting close to the summit._
 
-##### _Listing 4.2: Code for airdropping funds_
 
+
+##### _Listing 4.2: Code for airdropping funds_
 ```javascript
 const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
   if (!account) return;
@@ -126,7 +127,6 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
 If you open the browser's console from the `/wallet` page, and click on the **Airdrop** button, you'll notice a message that reads, "Airdrop functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `handleAirdrop` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 4.1](#listing-41-instructions-for-writing-airdrop-function) below.
 
 ##### _Listing 4.1: Instructions for writing airdrop function_
-
 ```javascript
 const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
   // This line ensures the function returns before running if no account has been set
