@@ -779,15 +779,54 @@ The beauty of public-key cryptography is that the private key is effectively you
 
 Recall that we've built a type of wallet called a Hierarchical Deterministic (HD) wallet, which means we can map our 12-word phrase to a seed. Since the keypair that makes the account is derived from this seed, as long as we have the recovery phrase, we can get access to the keypair and therefore the account.
 
-> Consider Aside: in the context of an industrial-strength wallet, you'll be using the phrase as a recovery mechanism and will leverage other simpler methods for day-to-day access but the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds
+---
+
+<details>
+  <summary><b>Box 6.1: Industrial-Strength Wallet Access</b></summary>
+
+  In the context of an industrial-strength wallet, you'll be using the phrase as a recovery mechanism only and will leverage other, simpler methods for day-to-day access but the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds.
+
+  Wallets like [MetaMask](https://metamask.io/) and [Phantom](https://phantom.app/) instantiate first-time, local access using recovery phrases and rely on locally encrypted password hashes for subsequent logins.
+</details>
+
+---
 
 If you saved your test account's recovery phrase, we'll use it now. Feel free to click log out at the top right. Once we've finished this step, you'll once again have access to your devnet SOL.
 
-### Challenge
+### Implementation
 
 Navigate to the app's home page at [http://localhost:3000](http://localhost:3000). If you click on the **Get Existing Wallet** button, you'll be routed to the page for importing the recovery phrase. But if you click on **Import** after pasting your phrase, you'll notice a message in the console that reads, "Recovery functionality not implemented yet!".
 
-For this feature to work, we need to implement a function that uses the phrase to generate a seed, and then uses the seed to retrieve the keypair (i.e. access the account). Navigate to `pages/recover.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 6.1](#listing-61-instructions-for-writing-recover-function) below.
+For this feature to work, we need to implement a function that uses the phrase to generate a seed, and then uses the seed to retrieve the keypair (i.e. access the account). 
+
+Recall that in [Step 2](#step-2-creating-a-wallet) we first generated a mnemonic phrase with the Bip39 library by leveraging the `generateMnemonic` function. Then, in order to generate a keypair, we had to convert the phrase to a seed that could be be consumed by Solana's `Keypair` class to generate the `Keypair` that would grant us access to the account.
+
+In this case, we already have a phrase because the user imported it but the rest of the code mirrors [Step 2](#step-2-creating-a-wallet). We can convert the phrase into a seed and then leverage the `fromSeed` method from `Keypair` to access the account.
+
+```javascript
+const seed = Bip39.mnemonicToSeedSync(inputMnemonic).slice(0, 32);
+const importedAccount = Keypair.fromSeed(seed);
+```
+
+With those two lines of code, we have effectively implemented authentication and allowed users to access their accounts from any device as long as they have their recovery phrase.
+
+##### _Listing 6.2: Code for Recovering an Account_
+
+```javascript
+const handleImport = async (values: any) => {
+  setLoading(true);
+  const inputMnemonic = values.phrase.trim().toLowerCase();
+  setMnemonic(inputMnemonic);
+
+  const seed = Bip39.mnemonicToSeedSync(inputMnemonic).slice(0, 32);
+  const importedAccount = Keypair.fromSeed(seed);
+  setAccount(importedAccount);
+};
+```
+
+### Challenge
+
+Navigate to `pages/recover.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 6.1](#listing-61-instructions-for-writing-recover-function) below.
 
 ##### _Listing 6.1: Instructions for writing recover function_
 
@@ -813,33 +852,6 @@ const handleImport = async (values: any) => {
   setAccount(importedAccount);
 
   // (d) You can now delete the console.log statement since the function is implemented!
-};
-```
-
-### Implementation
-
-Recall that in [Step 2](#step-2-creating-a-wallet) we first generated a mnemonic phrase with the Bip39 library by leveraging the `generateMnemonic` function. Then, in order to generate a keypair, we had to convert the phrase to a seed that could be be consumed by Solana's `Keypair` class to generate the `Keypair` that would grant us access to the account.
-
-In this case, we already have a phrase because the user imported it but the rest of the code mirrors [Step 2](#step-2-creating-a-wallet). We can convert the phrase into a seed and then leverage the `fromSeed` method from `Keypair` to access the account.
-
-```javascript
-const seed = Bip39.mnemonicToSeedSync(inputMnemonic).slice(0, 32);
-const importedAccount = Keypair.fromSeed(seed);
-```
-
-With those two lines of code, we have effectively implemented authentication and allowed users to access their accounts from any device as long as they have their recovery phrase.
-
-##### _Listing 6.2: Code for Recovering an Account_
-
-```javascript
-const handleImport = async (values: any) => {
-  setLoading(true);
-  const inputMnemonic = values.phrase.trim().toLowerCase();
-  setMnemonic(inputMnemonic);
-
-  const seed = Bip39.mnemonicToSeedSync(inputMnemonic).slice(0, 32);
-  const importedAccount = Keypair.fromSeed(seed);
-  setAccount(importedAccount);
 };
 ```
 
