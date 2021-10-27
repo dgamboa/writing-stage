@@ -2,11 +2,11 @@
 
 We've now generated a wallet and connected it to the Solana blockchain. In the previous step, we confirmed that our account's balance is zero but wouldn't it be nice to fund our account so we can see the balance change?
 
-You might be wondering whether we'll now need to transfer real money so we can test the account, but as we discussed in [Step 3](#step-3-fetching-a-balance), a blockchain's devnet typically provides a way to test transactions without risking real economic value.
+You might be wondering whether we'll now need to transfer real money so we can test the account, but as we discussed in [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3), a blockchain's devnet typically provides a way to test transactions without risking real economic value.
 
 In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. 
 
-![](./public/airdrop.jpeg)
+![](https://github.com/dgamboa/writing-stage/tree/main/public/airdrop.jpeg)
 <p align="center"><i><b>Figure 5:</b> We're about reinforce our supply lines with some devnet SOL</i></p>
 
 In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
@@ -25,11 +25,11 @@ In this case, we'll be tapping into the native devnet airdrop functionality buil
 
 On the right side of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
 
-Once we've completed this step, our balance will automatically increase when we click **Airdrop**. This will position us well for [Step 5](#step-5-transferring-funds) where we'll build functionality to send funds to other Solana accounts.
+Once we've completed this step, our balance will automatically increase when we click **Airdrop**. This will position us well for [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5) where we'll build functionality to send funds to other Solana accounts.
 
 ### Implementation
 
-In [Step 3](#step-3-fetching-a-balance) we learned how to instantiate a connection to one of Solana's networks, and how to assign our account's public key property to a variable. We can apply that same code here to start writing the `handleAirdrop` function in `utils/index.ts`:
+In [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3) we learned how to instantiate a connection to one of Solana's networks, and how to assign our account's public key property to a variable. We can apply that same code here to start writing the `handleAirdrop` function in `utils/index.ts`:
 
 ```javascript
 const connection = new Connection(clusterApiUrl(network), "confirmed");
@@ -40,7 +40,7 @@ Following our previous heuristic of searching the docs for keywords, we can now 
 
 You might be wondering what a "lamport" is. Solana's native token, SOL, is divisible into 1 billion lamports. You can think of lamports as the cents to SOL's dollar.
 
-![](./public/leslie.jpeg)
+![](https://github.com/dgamboa/writing-stage/tree/main/public/leslie.jpeg)
 <p align="center"><i><b>Figure 6:</b> This is also a lamport. Leslie Lamport is the lamport's namesake. He's a computer scientist who has made key contributions to distributed systems.</i></p>
 
 It's not clear from the documentation, but after a little research you can confirm that the returned string represents a confirmation ID or `signature`. From a function design standpoint, it seems reasonable that to request an airdrop we should pass in the account address (public key) and the amount of funds we're requesting.
@@ -81,9 +81,9 @@ Avid readers might have noticed that the balance in our account looks wrong. It 
 return balance / LAMPORTS_PER_SOL;
 ```
 
-We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](#step-5-transferring-funds), so brace yourself.
+We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5), so brace yourself.
 
-![](./public/climbing.jpeg)
+![](https://github.com/dgamboa/writing-stage/tree/main/public/climbing.jpeg)
 <p align="center"><i><b>Figure 7:</b> Getting close to the summit.</i></p>
 
 ##### _Listing 4.2: Code for airdropping funds_

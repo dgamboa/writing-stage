@@ -8,7 +8,7 @@ But there's one more important component: we need to prove to the network that w
 
 Consider a traditional paper check that you might use to pay your landlord. The check has your name and address printed on the top left. It includes a field for you to write the recipient's name along with a field for you to write the amount you're paying. Finally, it includes a field for you to sign the check to validate to the bank that you're approving the transfer.
 
-![](./public/check.jpeg)
+![](https://github.com/dgamboa/writing-stage/tree/main/public/check.jpeg)
 <p align="center"><i><b>Figure 8:</b> Crypto transactions are like digital checks (with real signatures).</i></p>
 
 Let's pretend that banks actually use those signatures to validate that you actually signed the check and it's not someone else forging your signature (spoiler alert: they don't for the most part).
@@ -25,7 +25,7 @@ If you click on the **Send** button on the wallet dashboard, a drawer component 
 
 Navigating to `components/TransactionLayout/index.tsx` we see a partially implemented `transfer` function.
 
-Based on [Step 3](#step-3-fetching-a-balance) and [Step 4](#step-4-airdropping-funds) we know that we're going to need a connection to the network. We can once again leverage our previous code:
+Based on [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3) and [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4) we know that we're going to need a connection to the network. We can once again leverage our previous code:
 
 ```javascript
 const connection = new Connection(clusterApiUrl(network), "confirmed");
@@ -123,7 +123,7 @@ In this case, if you click the link on the check, you'll be able to see a basic 
 
 You might notice a field labeled "Fee (SOL)". If you scroll to the Account Input(s), you'll also notice that it was charged to your account. While the recipient received the funds you specified, your account was deducted the amount you sent plus a small fee. These [transaction fees](https://docs.solana.com/transaction_fees) are designed to reward validators for the compute power spent to process transactions.
 
-At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](#step-6-recovering-an-account) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
+At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](https://learn.figment.io/tutorials/solana-wallet-dapp-step-6) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
 
 ##### _Listing 5.2: Code for transferring funds_
 

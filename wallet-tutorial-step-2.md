@@ -4,7 +4,7 @@ Crypto wallets are the most critical piece of user-facing infrastructure in the 
 
 A wallet is less like the wallet you use for your credit cards, and a lot more like a keychain. If you think of a blockchain as a giant bank safe with digital safety deposit boxes, wallets are the keychains where you keep the key to your box. Once you have access to a box, you can manage the contents of it by receiving, sending, holding and spending digital assets.
 
-![](./public/safe.jpeg)
+![](https://github.com/dgamboa/writing-stage/tree/main/public/safe.jpeg)
 <p align="center"><i><b>Figure 3:</b> Wallets hold private keys to your public address on a blockchain</i></p>
 
 We can think of the box itself as a chunk of memory on the blockchain. The digital box location is referred to as a public key, or more intuitively as a public address, and can be shared with anyone in the same way you might share your address to receive mail at home. As the name implies, this is widely available to others on the network and it is the identifier others use to send digital assets to a box.
@@ -113,11 +113,11 @@ const newAccount = Keypair.fromSeed(seed);
 
 We then set the account into context state and we have access to a Solana wallet.
 
-Once you implement the functionality, make sure you save the recovery phrase before you click **Finish** on the browser. We'll be using it in [Step 6](#step-6-recovering-an-account) to access the wallet once after logging out. 
+Once you implement the functionality, make sure you save the recovery phrase before you click **Finish** on the browser. We'll be using it in [Step 6](https://learn.figment.io/tutorials/solana-wallet-dapp-step-6) to access the wallet once after logging out. 
 
-Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard. You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3](#step-3-fetching-a-balance) while implementing the crucial functionality of showing users their balance.
+Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard. You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3) while implementing the crucial functionality of showing users their balance.
 
-In [Step 4](#step-4-airdropping-funds) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](#step-5-transferring-funds) we'll enable the **Send** button and transfer funds.
+In [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5) we'll enable the **Send** button and transfer funds.
 
 ##### _Listing 2.2: Code for creating a wallet_
 
@@ -130,7 +130,7 @@ const newAccount = Keypair.fromSeed(seed);
 setAccount(newAccount);
 ```
 
-![](./public/dashboard.png)
+![](https://github.com/dgamboa/writing-stage/tree/main/public/dashboard.png)
 
 ### Challenge
 
