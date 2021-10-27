@@ -117,7 +117,8 @@ Once you fill in the public address of your recipient and the amount, say one mi
 
 The [Solana Block Explorer](https://explorer.solana.com/?cluster=devnet) is a simple dashboard that allows you to search for specific blocks, accounts, transactions, contracts and tokens by network. It displays all the information related to the item you searched for.
 
->IMAGE: exploration
+![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/explore.jpeg)
+##### _Figure 9: Oh the places you'll go_
 
 In this case, if you click the link on the check, you'll be able to see a basic overview of the transfer you just issued. In the middle of the page, you'll see our transfer's information - mainly, the sender (your public address) and how much SOL you sent; and the recipient (the other public address) and how much SOL they received.
 
