@@ -2,7 +2,7 @@
 
 Getting access to accounts is obviously a critical feature for any wallet application, and given our choice of architecture, we don't have to worry about encrypting and decrypting passwords to log in and out.
 
-The beauty of public-key cryptography is that the private key is effectively your password. And while securing crypto applications is more sophisticated than simply using your private key as a password, especially for industrial-strength wallets, we can achieve the basic functionality of accessing a wallet by leveraging what we learned in [Step 2](https://learn.figment.io/tutorials/solana-wallet-dapp-step-2) for creating wallets.
+The beauty of public-key cryptography is that the private key is effectively your password. And while securing crypto applications is more sophisticated than simply using your private key as a password, especially for industrial-strength wallets, we can achieve the basic functionality of accessing a wallet by leveraging what we learned in [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2) for creating wallets.
 
 Recall that we've built a type of wallet called a Hierarchical Deterministic (HD) wallet, which means we can map our 12-word phrase to a seed. Since the keypair that makes the account is derived from this seed, as long as we have the recovery phrase, we can get access to the keypair and therefore the account.
 
@@ -24,9 +24,9 @@ Navigate to the app's home page at [http://localhost:3000](http://localhost:3000
 
 For this feature to work, we need to implement a function that uses the phrase to generate a seed, and then uses the seed to retrieve the keypair (i.e. access the account). 
 
-Recall that in [Step 2](https://learn.figment.io/tutorials/solana-wallet-dapp-step-2) we first generated a mnemonic phrase with the Bip39 library by leveraging the `generateMnemonic` function. Then, in order to generate a keypair, we had to convert the phrase to a seed that could be be consumed by Solana's `Keypair` class to generate the `Keypair` that would grant us access to the account.
+Recall that in [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2) we first generated a mnemonic phrase with the Bip39 library by leveraging the `generateMnemonic` function. Then, in order to generate a keypair, we had to convert the phrase to a seed that could be be consumed by Solana's `Keypair` class to generate the `Keypair` that would grant us access to the account.
 
-In this case, we already have a phrase because the user imported it but the rest of the code mirrors [Step 2](https://learn.figment.io/tutorials/solana-wallet-dapp-step-2). We can convert the phrase into a seed and then leverage the `fromSeed` method from `Keypair` to access the account.
+In this case, we already have a phrase because the user imported it but the rest of the code mirrors [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2). We can convert the phrase into a seed and then leverage the `fromSeed` method from `Keypair` to access the account.
 
 ```javascript
 const seed = Bip39.mnemonicToSeedSync(inputMnemonic).slice(0, 32);
@@ -47,6 +47,10 @@ const handleImport = async (values: any) => {
   setAccount(importedAccount);
 };
 ```
+
+This is a good point to reflect on what we've just completed. Clearly we built a crypto wallet capable of performing basic actions on Solana.
+
+But taking a step back, we built something capable of performing actions that have long been the sole purview of giant financial institutions. Think about it. By understanding a few concepts, leveraging some libraries, and writing a few lines of code, you just built a trustless, decentralized bank. Let that sink in.
 
 ### Challenge
 

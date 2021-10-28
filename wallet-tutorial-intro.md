@@ -55,19 +55,19 @@ The implementation is followed by a challenge that aims to give you just enough 
 
 ### Wallet Preview
 
-By the time you're done with this tutorial, you'll have a functional wallet capable of changing the state of the Solana blockchain by receiving and transferring onchain funds. In [Step 2](https://learn.figment.io/tutorials/solana-wallet-dapp-step-2), we'll generate a 12-word phrase that will grant us access to a wallet.
+By the time you're done with this tutorial, you'll have a functional wallet capable of changing the state of the Solana blockchain by receiving and transferring onchain funds. In [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2), we'll generate a 12-word phrase that will grant us access to a wallet.
 
 ![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/create.png)
 
-Then we'll build a function to fetch the balance of our newly created wallet in [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3) before leveraging functionality to issue "test tokens" through something called an "airdrop" that we'll explore in [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4).
+Then we'll build a function to fetch the balance of our newly created wallet in [Step 3](https://learn.figment.io/tutorials/solana-wallet-step-3) before leveraging functionality to issue "test tokens" through something called an "airdrop" that we'll explore in [Step 4](https://learn.figment.io/tutorials/solana-wallet-step-4).
 
 ![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/airdrop.png)
 
-Having added funds to our wallet, we'll build the ability to transfer funds to another wallet in [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5) using bank checks as a scaffolding analogy.
+Having added funds to our wallet, we'll build the ability to transfer funds to another wallet in [Step 5](https://learn.figment.io/tutorials/solana-wallet-step-5) using bank checks as a scaffolding analogy.
 
 ![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/transfer.png)
 
-Finally, we'll use the phrase we generated in [Step 2](https://learn.figment.io/tutorials/solana-wallet-dapp-step-2) to sign into an account and recover access to it in [Step 6](https://learn.figment.io/tutorials/solana-wallet-dapp-step-6).
+Finally, we'll use the phrase we generated in [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2) to sign into an account and recover access to it in [Step 6](https://learn.figment.io/tutorials/solana-wallet-step-6).
 
 ![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/import.png)
 

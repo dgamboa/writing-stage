@@ -107,11 +107,11 @@ const newAccount = Keypair.fromSeed(seed);
 
 We then set the account into context state and we have access to a Solana wallet.
 
-Once you implement the functionality, make sure you save the recovery phrase before you click **Finish** on the browser. We'll be using it in [Step 6](https://learn.figment.io/tutorials/solana-wallet-dapp-step-6) to access the wallet once after logging out. 
+Once you implement the functionality, make sure you save the recovery phrase before you click **Finish** on the browser. We'll be using it in [Step 6](https://learn.figment.io/tutorials/solana-wallet-step-6) to access the wallet once after logging out. 
 
-Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard. You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3) while implementing the crucial functionality of showing users their balance.
+Once you click on **Finish**, you'll be routed to the wallet page that displays the account's dashboard. You'll notice this page includes a few other features. We'll discuss the Network dropdown in [Step 3](https://learn.figment.io/tutorials/solana-wallet-step-3) while implementing the crucial functionality of showing users their balance.
 
-In [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5) we'll enable the **Send** button and transfer funds.
+In [Step 4](https://learn.figment.io/tutorials/solana-wallet-step-4) we'll dive into airdrops and make the **Airdrop** button functional, and in [Step 5](https://learn.figment.io/tutorials/solana-wallet-step-5) we'll enable the **Send** button and transfer funds.
 
 ##### _Listing 2.2: Code for creating a wallet_
 ```javascript

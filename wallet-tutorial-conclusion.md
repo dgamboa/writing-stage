@@ -1,10 +1,10 @@
 ## Conclusion
 
-Congratulations! You've built a crypto wallet that is capable of managing onchain digital assets on the Solana protocol. That's no small feat!
+Congratulations! You've built a crypto wallet that is capable of managing onchain digital assets on the Solana protocol.
 
-By writing a function to generate a mnemonic phrase and using it to create a keypair in [Step 2](https://learn.figment.io/tutorials/solana-wallet-dapp-step-2), you gave the wallet access to a unique account. You then implemented functionality to connect to one of Solana's networks and fetch balance data from it in [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3).
+By writing a function to generate a mnemonic phrase and using it to create a keypair in [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2), you gave the wallet access to a unique account. You then implemented functionality to connect to one of Solana's networks and fetch balance data from it in [Step 3](https://learn.figment.io/tutorials/solana-wallet-step-3).
 
-Next, you wrote functionality to request test tokens via an airdrop in [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4). And after that you sent some of those funds to another account by learning how to initiate and confirm fund transfers in [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5). Finally, you learned how to recover an account in [Step 6](https://learn.figment.io/tutorials/solana-wallet-dapp-step-6) by leveraging the same code we used in [Step 2](https://learn.figment.io/tutorials/solana-wallet-dapp-step-2).
+Next, you wrote functionality to request test tokens via an airdrop in [Step 4](https://learn.figment.io/tutorials/solana-wallet-step-4). And after that you sent some of those funds to another account by learning how to initiate and confirm fund transfers in [Step 5](https://learn.figment.io/tutorials/solana-wallet-step-5). Finally, you learned how to recover an account in [Step 6](https://learn.figment.io/tutorials/solana-wallet-step-6) by leveraging the same code we used in [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2).
 
 In the process of building the wallet, you learned some of the fundamentals of developing for Web 3. You learned how the frontend of the stack is practically identical to what you're already used to. You also learned that interacting with blockchain protocols means leveraging API libraries that help you create, read and update data in a familiar way.
 

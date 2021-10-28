@@ -2,7 +2,7 @@
 
 We've now generated a wallet and connected it to the Solana blockchain. In the previous step, we confirmed that our account's balance is zero but wouldn't it be nice to fund our account so we can see the balance change?
 
-You might be wondering whether we'll now need to transfer real money so we can test the account, but as we discussed in [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3), a blockchain's devnet typically provides a way to test transactions without risking real economic value.
+You might be wondering whether we'll now need to transfer real money so we can test the account, but as we discussed in [Step 3](https://learn.figment.io/tutorials/solana-wallet-step-3), a blockchain's devnet typically provides a way to test transactions without risking real economic value.
 
 In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. 
 
@@ -23,11 +23,11 @@ For example, the Stellar Development Foundation performed a $125 million airdrop
 
 On the right side of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
 
-Once we've completed this step, our balance will automatically increase when we click **Airdrop**. This will position us well for [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5) where we'll build functionality to send funds to other Solana accounts.
+Once we've completed this step, our balance will automatically increase when we click **Airdrop**. This will position us well for [Step 5](https://learn.figment.io/tutorials/solana-wallet-step-5) where we'll build functionality to send funds to other Solana accounts.
 
 ### Implementation
 
-In [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3) we learned how to instantiate a connection to one of Solana's networks, and how to assign our account's public key property to a variable. We can apply that same code here to start writing the `handleAirdrop` function in `utils/index.ts`:
+In [Step 3](https://learn.figment.io/tutorials/solana-wallet-step-3) we learned how to instantiate a connection to one of Solana's networks, and how to assign our account's public key property to a variable. We can apply that same code here to start writing the `handleAirdrop` function in `utils/index.ts`:
 
 ```javascript
 const connection = new Connection(clusterApiUrl(network), "confirmed");
@@ -79,7 +79,7 @@ Avid readers might have noticed that the balance in our account looks wrong. It 
 return balance / LAMPORTS_PER_SOL;
 ```
 
-We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](https://learn.figment.io/tutorials/solana-wallet-dapp-step-5), so brace yourself.
+We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](https://learn.figment.io/tutorials/solana-wallet-step-5), so brace yourself.
 
 ![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/climbing.jpeg)
 ##### _Figure 7: Getting close to the summit._

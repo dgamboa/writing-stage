@@ -25,7 +25,7 @@ If you click on the **Send** button on the wallet dashboard, a drawer component 
 
 Navigating to `components/TransactionLayout/index.tsx` we see a partially implemented `transfer` function.
 
-Based on [Step 3](https://learn.figment.io/tutorials/solana-wallet-dapp-step-3) and [Step 4](https://learn.figment.io/tutorials/solana-wallet-dapp-step-4) we know that we're going to need a connection to the network. We can once again leverage our previous code:
+Based on [Step 3](https://learn.figment.io/tutorials/solana-wallet-step-3) and [Step 4](https://learn.figment.io/tutorials/solana-wallet-step-4) we know that we're going to need a connection to the network. We can once again leverage our previous code:
 
 ```javascript
 const connection = new Connection(clusterApiUrl(network), "confirmed");
@@ -118,13 +118,13 @@ Once you fill in the public address of your recipient and the amount, say one mi
 The [Solana Block Explorer](https://explorer.solana.com/?cluster=devnet) is a simple dashboard that allows you to search for specific blocks, accounts, transactions, contracts and tokens by network. It displays all the information related to the item you searched for.
 
 ![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/explore.jpeg)
-##### _Figure 9: Oh the places you'll go_
+##### _Figure 9: Oh the places you'll go!_
 
 In this case, if you click the link on the check, you'll be able to see a basic overview of the transfer you just issued. In the middle of the page, you'll see our transfer's information - mainly, the sender (your public address) and how much SOL you sent; and the recipient (the other public address) and how much SOL they received.
 
 You might notice a field labeled "Fee (SOL)". If you scroll to the Account Input(s), you'll also notice that it was charged to your account. While the recipient received the funds you specified, your account was deducted the amount you sent plus a small fee. These [transaction fees](https://docs.solana.com/transaction_fees) are designed to reward validators for the compute power spent to process transactions.
 
-At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](https://learn.figment.io/tutorials/solana-wallet-dapp-step-6) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
+At this point, your Solana wallet is almost complete, except for one major flaw. You can create a wallet, and even transfer funds from it. But you can't access an existing wallet. We'll fix that in [Step 6](https://learn.figment.io/tutorials/solana-wallet-step-6) where we'll once again leverage the Bip39 library to access an account based on a mnemonic phrase.
 
 ##### _Listing 5.2: Code for transferring funds_
 ```javascript
