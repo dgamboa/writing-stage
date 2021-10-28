@@ -12,8 +12,7 @@ We think of ourselves as your guide - for a brief amount of time - on your journ
 
 We've tried to show you the door (or maybe part of it). Your job is to discover your path and walk it courageously.
 
-![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/cat.jpeg)
-##### _Figure 1: You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes._
+![Figure 1: You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/cat.jpeg)
 
 ## Step 1: Up and Running
 
@@ -73,5 +72,4 @@ Finally, we'll use the phrase we generated in [Step 2](https://learn.figment.io/
 
 Although building a production-ready, non-custodial wallet like [Phantom](https://phantom.app/) or [MetaMask](https://metamask.io/) is beyond the scope of this tutorial, by the end of it you'll have developed a foundation of judgment that will let you better allocate your learning time as you explore new projects. To assist with that, we'll end the tutorial with a list of [additional resources](#additional-resources) that you'll be well prepared to explore.
 
-![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/journey.jpeg)
-##### _Figure 2: A journey of a thousand miles begins with a single step_
+![Figure 2: A journey of a thousand miles begins with a single step](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/journey.jpeg)

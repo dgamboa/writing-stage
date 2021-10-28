@@ -6,8 +6,7 @@ You might be wondering whether we'll now need to transfer real money so we can t
 
 In this step, we'll be building functionality to allow users to "airdrop" SOL tokens into their devnet account. In the crypto world, an airdrop is a way for the protocol to distribute tokens to account holders for free. 
 
-![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/airdrop.jpeg)
-##### _Figure 5: We're about reinforce our supply lines with some devnet SOL_
+![Figure 5: We're about reinforce our supply lines with some devnet SOL](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/airdrop.jpeg)
 
 In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
 
@@ -34,8 +33,7 @@ Following our previous heuristic of searching the docs for keywords, we can now 
 
 You might be wondering what a "lamport" is. Solana's native token, SOL, is divisible into 1 billion lamports. You can think of lamports as the cents to SOL's dollar.
 
-![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/leslie.jpeg)
-##### _Figure 6: This is also a lamport. Leslie Lamport is the lamport's namesake. He's a computer scientist who has made key contributions to distributed systems._
+![Figure 6: This is also a lamport. Leslie Lamport is the lamport's namesake. He's a computer scientist who has made key contributions to distributed systems](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/leslie.jpeg)
 
 It's not clear from the documentation, but after a little research you can confirm that the returned string represents a confirmation ID or `signature`. From a function design standpoint, it seems reasonable that to request an airdrop we should pass in the account address (public key) and the amount of funds we're requesting.
 
@@ -77,10 +75,7 @@ return balance / LAMPORTS_PER_SOL;
 
 We've come a long way and now have a better idea of how blockchain protocols work. We built a wallet by creating a keypair, connected to the network, fetched data from it, and successfully requested test tokens. We've covered all of the basic Web 3 interactions except the most important one - transferring funds. We'll do that next in [Step 5](https://learn.figment.io/tutorials/solana-wallet-step-5), so brace yourself.
 
-![](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/climbing.jpeg)
-##### _Figure 7: Getting close to the summit._
-
-
+![Figure 7: Getting close to the summit](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/climbing.jpeg)
 
 ##### _Listing 4.2: Code for airdropping funds_
 ```javascript
