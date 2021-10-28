@@ -28,7 +28,7 @@ You'll be building Solana interactions on top of a [Next.js](https://nextjs.org/
 First, clone [the repo](https://github.com/figment-networks/wallet-tutorial) in your system and install the app dependencies by running the following three commands in your terminal:
 
 ##### _Listing 1.1: Set up commands to run on your terminal_
-```
+```text
 $ git clone https://github.com/figment-networks/wallet-tutorial.git
 $ cd wallet-tutorial
 $ yarn
@@ -37,7 +37,7 @@ $ yarn
 Then, run `yarn dev` in your terminal to start the development server on port 3000. The terminal should print output similar to that in [Listing 1.2](#listing-12-terminal-message-on-app-start-up) informing you that the app is available to be viewed at [http://localhost:3000](http://localhost:3000).
 
 ##### _Listing 1.2: Terminal message on app start up_
-```
+```text
 yarn run v1.22.11
 $ next dev
 ready - started server on 0.0.0.0:3000, url: http://localhost:3000
