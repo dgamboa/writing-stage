@@ -11,10 +11,7 @@ In this step, we'll be building functionality to allow users to "airdrop" SOL to
 In this case, we'll be tapping into the native devnet airdrop functionality built into Solana to fund our account. This is in contrast to mainnet airdrops performed by blockchain protocols and crypto projects, which are usually issued to reward early adopters or contributors.
 
 {% sidenote title="Box 4.1: Growth Hacking with Aidrops" %}
-Protocols and companies use airdrops as a marketing technique to hype their launch and catalyze user growth. By issuing tokens to users that joined by a certain date or performed some action on the protocol, they can spread the word and, if the airdrop is successful, make more people aware of the solution they're building.
-
-For example, the Stellar Development Foundation performed a $125 million airdrop in late 2018 to get Stellar Lumens in the hands of crypto users and try to boost mainstream adoptions.
-{% endsidenote %}
+Protocols and companies use airdrops as a marketing technique to hype their launch and catalyze user growth. By issuing tokens to users that joined by a certain date or performed some action on the protocol, they can spread the word and, if the airdrop is successful, make more people aware of the solution they're building. {% newp %} For example, the Stellar Development Foundation performed a $125 million airdrop in late 2018 to get Stellar Lumens in the hands of crypto users and try to boost mainstream adoptions.
 
 On the right side of the wallet dashboard, you'll find a button with the label **Airdrop**. You might notice that this button goes away if you change the network. This is because the functionality we're implementing is only active for devnet. Moreover, you'll notice a tooltip help icon informing users that they'll receive 1 devnet SOL by clicking on **Airdrop**.
 
