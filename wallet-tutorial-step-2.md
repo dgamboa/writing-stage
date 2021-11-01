@@ -13,10 +13,7 @@ The key that can unlock the safety deposit box is referred to as the private key
 In this tutorial, we'll be building a type of wallet called a Hierarchical Deterministic (HD) wallet. We don't need to dive into the full definition of HD wallets here, but it's important to know that they enable the ability to store the private key as a 12-, 18-, or 24-word phrase referred to as a secret recovery phrase or mnemonic phrase. You'll be using a JavaScript library called [Bip39](https://github.com/bitcoinjs/bip39) to facilitate the generation of this phrase, which in turn can be converted into a private key to create a wallet.
 
 {% sidenote title="Box 2.1: Why is the secret recovery phrase also called a mnemonic?" %}
-The concept of a mnemonic phrase was introduced by Bitcoin Improvement Proposal 39 ([BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)). The term "mnemonic" refers to a pattern that makes something easier to remember. For instance, some of you might be familiar with the order of operations mnemonic in math: PEMDAS, or "please excuse my dear aunt Sally".
-
-The motivation for BIP39 was that "a mnemonic code or sentence is superior for human interaction compared to the handling of raw binary or hexadecimal representations of a wallet seed."
-{% endsidenote %}
+The concept of a mnemonic phrase was introduced by Bitcoin Improvement Proposal 39 ([BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)). The term "mnemonic" refers to a pattern that makes something easier to remember. For instance, some of you might be familiar with the order of operations mnemonic in math: PEMDAS, or "please excuse my dear aunt Sally". {% newp %} The motivation for BIP39 was that "a mnemonic code or sentence is superior for human interaction compared to the handling of raw binary or hexadecimal representations of a wallet seed."
 
 Run and open the app in your browser at [http://localhost:3000](http://localhost:3000). You'll notice the frontend offers the user the option to create a new wallet or import an existing wallet.
 
@@ -45,22 +42,14 @@ const generatedMnemonic = Bip39.generateMnemonic();
 This allows us to set the phrase in state and display it for our user to write down and store safely. With this step we have effectively created our wallet because the phrase by itself will allow its holder to access the account that matches it.
 
 {% sidenote title="Box 2.2: The conservation of blockchain accounts" %}
-Even though most of the community refers to accounts as being created, technically blockchain accounts can't be created or destroyed.
-
-These accounts are mathematical addresses in a system where their existence is established mathematically at inception by the system's architecture. It's more accurate to think of the mnemonic as obtaining the key to access a pre-existing, empty account.
-{% endsidenote %}
+Even though most of the community refers to accounts as being created, technically blockchain accounts can't be created or destroyed. {% newp %} These accounts are mathematical addresses in a system where their existence is established mathematically at inception by the system's architecture. It's more accurate to think of the mnemonic as obtaining the key to access a pre-existing, empty account.
 
 Before we can connect to the account on the blockchain, however, we need to convert the phrase into a form that the blockchain can understand. After all, mnemonic phrases are abstractions that translate a long, archaic number into a more human-friendly form.
 
 We need to convert the phrase into bytes so the Solana web3.js library can use it to generate a `keypair` object. The `keypair` will be the wallet account consisting of a public key that can encrypt data and a private key that can decrypt data.
 
 {% sidenote title="Box 2.3: Public-key cryptography" %}
-At a high-level public-key cryptography is a cryptographic system that uses keypairs to transmit information securely. Each keypair consists of a public key, which is widely known across the system, and a private key, which should be kept secret by its owner.
-
-Suppose Bob wants to send a secure message to Alice while ensuring that, even if Eve intercepts it, she can't read it. Bob would encrypt the message using Alice's public key and then send the message. Because of something called a one-way function, the public key cannot be used to decrypt the message. The only way the message can be decrypted is with the private key that complements the public key used by Bob - that is, the private key that Alice holds. Bob can rest assured that no one but Alice will be able to read the message.
-
-The ability to encrypt information without the need to pre-share symmetric keys was a massive technological development. And the history behind these breakthroughs is well worth studying if you're so inclined. We've included a few suggestions as [additional resources](#additional-resources).
-{% endsidenote %}
+At a high-level public-key cryptography is a cryptographic system that uses keypairs to transmit information securely. Each keypair consists of a public key, which is widely known across the system, and a private key, which should be kept secret by its owner. {% newp %} Suppose Bob wants to send a secure message to Alice while ensuring that, even if Eve intercepts it, she can't read it. Bob would encrypt the message using Alice's public key and then send the message. Because of something called a one-way function, the public key cannot be used to decrypt the message. The only way the message can be decrypted is with the private key that complements the public key used by Bob - that is, the private key that Alice holds. Bob can rest assured that no one but Alice will be able to read the message. {% newp %} The ability to encrypt information without the need to pre-share symmetric keys was a massive technological development. And the history behind these breakthroughs is well worth studying if you're so inclined. We've included a few suggestions as [additional resources](#additional-resources).
 
 By reviewing Solana's web3.js [documentation](https://solana-labs.github.io/solana-web3.js/index.html), we see that there's a `Keypair` class defined as "an account keypair used for signing transactions." This is exactly what we need to generate using the mnemonic phrase.
 
