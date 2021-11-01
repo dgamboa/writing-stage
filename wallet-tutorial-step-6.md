@@ -6,7 +6,7 @@ The beauty of public-key cryptography is that the private key is effectively you
 
 Recall that we've built a type of wallet called a Hierarchical Deterministic (HD) wallet, which means we can map our 12-word phrase to a seed. Since the keypair that makes the account is derived from this seed, as long as we have the recovery phrase, we can get access to the keypair and therefore the account.
 
-{% sidenote title="Box 6.1: Industrial-Strength Wallet Access"}
+{% sidenote title="Box 6.1: Industrial-Strength Wallet Access" %}
 In the context of an industrial-strength wallet, you would use the phrase as a recovery mechanism only. Day-to-day access would be enabled through the use of passwords. However, the analogy of the phrase serving as a type of very secure but somewhat cumbersome password still holds.
 
 Wallets like [MetaMask](https://metamask.io/) and [Phantom](https://phantom.app/) handle first-time access using recovery phrases and rely on locally encrypted password hashes for subsequent logins.
