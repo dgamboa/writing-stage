@@ -9,6 +9,7 @@ But there's one more important component: we need to prove to the network that w
 Consider a traditional paper check that you might use to pay your landlord. The check has your name and address printed on the top left. It includes a field for you to write the recipient's name along with a field for you to write the amount you're paying. Finally, it includes a field for you to sign the check to validate to the bank that you're approving the transfer.
 
 ![Figure 8: Crypto transactions are like digital checks (with real signatures)](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/check.jpeg)
+##### _Figure 8: Crypto transactions are like digital checks (with real signatures)_
 
 Let's pretend that banks actually use those signatures to validate that you actually signed the check and it's not someone else forging your signature (spoiler alert: they don't for the most part).
 
@@ -117,6 +118,7 @@ Once you fill in the public address of your recipient and the amount, say one mi
 The [Solana Block Explorer](https://explorer.solana.com/?cluster=devnet) is a simple dashboard that allows you to search for specific blocks, accounts, transactions, contracts and tokens by network. It displays all the information related to the item you searched for.
 
 ![Figure 9: Oh the places you'll go!](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/explore.jpeg)
+##### _Figure 9: Oh the places you'll go!_
 
 In this case, if you click the link on the check, you'll be able to see a basic overview of the transfer you just issued. In the middle of the page, you'll see our transfer's information - mainly, the sender (your public address) and how much SOL you sent; and the recipient (the other public address) and how much SOL they received.
 

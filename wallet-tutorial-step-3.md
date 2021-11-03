@@ -9,6 +9,7 @@ We'll be connecting to one of Solana's networks, and fetching the balance for th
 The concept of various networks for a single protocol is similar to that of different environments for an app (e.g. development, test, production, etc). Typically blockchain protocols have a main network or mainnet, which refers to the production blockchain with real economic value and official transactions, and at least one experimentation network, which refers to an identical blockchain used to test features before they go live on mainnet.
 
 ![Figure 4: It's always important to test on devnet before deploying on mainnet](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/consultant.jpeg)
+##### _Figure 4: It's always important to test on devnet before deploying on mainnet_
 
 Solana has a production network called mainnet and two exploration networks called testnet and devnet. Solana's devnet is designed for developers and users to play with various features and debug dApps before launching on mainnet with real economic consequences. The testnet is where Solana tests potential protocol updates.
 
