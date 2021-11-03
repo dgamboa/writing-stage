@@ -1,4 +1,4 @@
-## Conclusion
+# Conclusion
 
 Congratulations! You've built a crypto wallet that is capable of managing onchain digital assets on the Solana protocol.
 

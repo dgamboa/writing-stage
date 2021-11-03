@@ -1,4 +1,4 @@
-## Step 6: Recovering an Account
+# Step 6: Recovering an Account
 
 Getting access to accounts is obviously a critical feature for any wallet application, and given our choice of architecture, we don't have to worry about encrypting and decrypting passwords to log in and out.
 
@@ -11,7 +11,7 @@ In the context of an industrial-strength wallet, you would use the phrase as a r
 
 If you saved your test account's recovery phrase, we'll use it now. Feel free to click log out at the top right. Once we've finished this step, you'll once again have access to your devnet SOL.
 
-### Implementation
+## Implementation
 
 Navigate to the app's home page at [http://localhost:3000](http://localhost:3000). If you click on the **Get Existing Wallet** button, you'll be routed to the page for importing the recovery phrase. But if you click on **Import** after pasting your phrase, you'll notice a message in the console that reads, "Recovery functionality not implemented yet!".
 
@@ -45,7 +45,7 @@ This is a good point to reflect on what we've just completed. Clearly we built a
 
 But taking a step back, we built something capable of performing actions that have long been the sole purview of giant financial institutions. Think about it. By understanding a few concepts, leveraging some libraries, and writing a few lines of code, you just built a trustless, decentralized bank. Let that sink in.
 
-### Challenge
+## Challenge
 
 Navigate to `pages/recover.tsx` in your editor and follow the steps included as comments to finish writing the function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 6.1](#listing-61-instructions-for-writing-recover-function) below.
 

@@ -1,4 +1,4 @@
-## Step 3: Fetching a Balance
+# Step 3: Fetching a Balance
 
 Crypto wallets serve one key function. By storing your private keys, they allow you to manage - transfer, receive, organize - your digital assets. Part of that function requires the wallet to retrieve certain data that is stored onchain to display on your user dashboard.
 
@@ -14,7 +14,7 @@ Solana has a production network called mainnet and two exploration networks call
 
 You'll notice the wallet includes a dropdown at the top-right that allows users to select what network they want to connect to. This allows the wallet to manage assets specific to the connected network. Our default network is devnet since we'll be using it to receive test tokens in [Step 4](https://learn.figment.io/tutorials/solana-wallet-step-4) and then transfer them in [Step 5](https://learn.figment.io/tutorials/solana-wallet-step-5), but the functionality we'll build will work for any of the Solana networks.
 
-### Implementation
+## Implementation
 
 In the [Step 2](https://learn.figment.io/tutorials/solana-wallet-step-2), we discussed how a wallet is more like a keychain that holds keypairs representing an account address and the key to access it. We built a function that allowed us to generate a unique account and the corresponding phrase that works like a password for accessing the account. Now we need to connect with the Solana blockchain so we can fetch the account's balance, which at this point should be zero because we just created it.
 
@@ -73,7 +73,7 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
 };
 ```
 
-### Challenge
+## Challenge
 
 If you open the browser's console from the `/wallet` page, you'll notice a message that reads, "Balance functionality not implemented yet!". Navigate to `utils/index.ts` in your editor and follow the steps included as comments to finish writing the `refreshBalance` function. We include a description along with a link to the documentation you need to review in order to implement each line. The relevant code block is also included in [Listing 3.1](#listing-31-instructions-for-fetching-an-accounts-balance) below.
 
