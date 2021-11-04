@@ -28,11 +28,6 @@ As for `commitmentOrConfig`, it looks like the definition for `Commitment` types
 {% sidenote title="Box 3.1: A Note on Technical Sophistication" %}
 In his ground-breaking series on software development, Michael Hartl and the [Learn Enough](https://www.learnenough.com/) team introduced the concept of _technical sophistication_ as a key attribute of the technical development process. They define it as "the combination of hard and soft skills that make it seem like you can magically solve any technical problem." Figuring things out and being resourceful is at least half the battle, and sometimes the whole war. When in doubt, refer to the [xkcd flowchart](https://m.xkcd.com/627/).
 
-{% sidenote title="Box 3.1: A Note on Technical Sophistication" %}
-In his ground-breaking series on software development, Michael Hartl and the [Learn Enough](https://www.learnenough.com/) team introduced the concept of _technical sophistication_ as a key attribute of the technical development process. They define it as "the combination of hard and soft skills that make it seem like you can magically solve any technical problem."
-
-Figuring things out and being resourceful is at least half the battle, and sometimes the whole war. When in doubt, refer to the [xkcd flowchart](https://m.xkcd.com/627/).
-
 Putting the above together, we can build our connection instance:
 
 ```javascript
