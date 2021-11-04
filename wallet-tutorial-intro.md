@@ -13,7 +13,8 @@ We think of ourselves as your guide - for a brief amount of time - on your journ
 We've tried to show you the door (or maybe part of it). Your job is to discover your path and walk it courageously.
 
 ![Figure 1: You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes](https://raw.githubusercontent.com/dgamboa/writing-stage/main/public/cat.jpeg)
-##### _Figure 1: You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes_
+{% label %}
+Figure 1: You take the red pill — you stay in Wonderland and I show you how deep the rabbit hole goes
 
 # Step 1: Up and Running
 
