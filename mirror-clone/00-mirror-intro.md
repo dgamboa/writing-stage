@@ -17,40 +17,6 @@ We've tried to show you the door (or maybe part of it). Your job is to discover 
 {% label %}
 Figure 1: “I do not believe it to be a matter of hope, it is simply a matter of time.”
 
-# Step 1: Up and Running
-
-## System Dependencies
-
-Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install) installed.
-
-## Setting Up
-
-You'll be building the blog application on top of a [Next.js](https://nextjs.org/) template that we have pre-built. This way you can quickly scaffold your way into developing the Web 3 application stack with minimal configuration.
-
-**This will change depending on whether we use the template**
->>>>>>>>>>>>>>> Start
-
-First, clone [the repo]() in your system and install the app dependencies by running the following three commands in your terminal:
-
-##### _Listing 1.1: Set up commands to run on your terminal_
-```text
-$ git clone [_]
-$ cd wallet-tutorial
-$ yarn
-```
-
-Then, run `yarn dev` in your terminal to start the development server on port 3000. The terminal should print output similar to that in [Listing 1.2](#listing-12-terminal-message-on-app-start-up) informing you that the app is available to be viewed at [http://localhost:3000](http://localhost:3000).
-
-##### _Listing 1.2: Terminal message on app start up_
-```text
-yarn run v1.22.11
-$ next dev
-ready - started server on 0.0.0.0:3000, url: http://localhost:3000
-info  - Using webpack 5. Reason: Enabled by default https://nextjs.org/docs/messages/webpack5
-event - compiled successfully
-```
->>>>>>>>>>>>>>> End
-
 ## Tutorial Structure
 
 The tutorial is structured as a set of steps that break down the development process into specific work blocks on each part of the stack. Each step discusses key concepts and mental models that create the necessary context for you to better understand what we're building and why. Think of this as the **warm up**.
