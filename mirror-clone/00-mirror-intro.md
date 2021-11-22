@@ -4,7 +4,7 @@ Welcome to the Mirror Tutorial! The goal of this tutorial is to introduce the We
 
 ## Prerequisites
 
-If you know how to program and have [JavaScript](https://www.javascript.com/) experience, you'll be able to complete the tutorial. Having said that, this will be a more comfortable experience if you have some experience with [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). While you may not have built full stack Web 3 applications, hopefully you have used a crypto wallet like [MetaMask](https://metamask.io/) and you are familiar with basic blockchain concepts like public address, private keys, and signing transactions.
+If you know how to program and have [JavaScript](https://www.javascript.com/) experience, you'll be able to complete the tutorial. Having said that, this will be a more comfortable experience if you have some experience with [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), and [NextJS](https://nextjs.org/). While you may not have built full stack Web 3 applications, hopefully you have used a crypto wallet like [MetaMask](https://metamask.io/) and you are familiar with basic blockchain concepts like public address, private keys, and signing transactions.
 
 If any of that sounds unfamiliar, or the idea of engaging with those concepts sounds daunting at this point in your learning, we recommend starting with the [Solana Wallet](https://learn.figment.io/tutorials/solana-wallet-intro) tutorial before completing this one.
 

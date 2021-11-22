@@ -58,3 +58,12 @@ event - compiled successfully
 
 ## Reviewing the Template
 
+Before we dive into the code, we should understand what the template comes with. Along with the standard folder structure and dependencies found in most NextJS applications, we have added two Web 3-specific libraries that we'll leverage throughout the tutorial - [ethers.js](https://docs.ethers.io/) and [Hardhat](https://hardhat.org/).
+
+Ethers is a JavaScript library designed to interact with Ethereum and Ethereum-compatible blockchains. We'll first encounter ethers in [Step 2]() to interface with [MetaMask]() and connect our wallet.
+
+Hardhat is a development environment for Ethereum and Ethereum-compatible blockchains. It allows you to write and compile Solidity locally, run tests, and deploy smart contracts, all while fully supporting TypeScript. We'll leverage Hardhat in [Step X]() to manage development of the smart contract used to mint and transfer NFTs related to blog posts.
+
+>>>>>>>>> Start
+Should we describe the non-standard directories like web3, context, fetchers, etc here? My sense is that it's probably helpful to provide context on the template before we use it in subsequent steps.
+>>>>>>>>> End
